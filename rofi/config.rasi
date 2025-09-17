@@ -1,0 +1,27 @@
+configuration {
+    modi: "drun,run,filebrowser,window";
+    font: "JetBrainsMonoNL Nerd Font Mono";
+    show-icons: true;
+
+    drun-display-format: "{icon} {name}";
+	display-drun: "☰";
+	display-window: "󰕰";
+    display-run: " ";
+    display-filebrowser: " ";
+
+    window-format: "{w} · {c} · {t}";
+    sidebar-mode: true;
+
+    prompt: "Hi";
+
+    timeout {
+		action: "kb-cancel";
+		delay:  0;
+	}
+	filebrowser {
+		directories-first: true;
+		sorting-method:    "name";
+	}
+}
+
+@theme "custom-theme.rasi"
