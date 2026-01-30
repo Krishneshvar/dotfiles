@@ -1,0 +1,86 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // position (top|bottom|left|right)
+    "height": 30, // Waybar height (remove for auto height)
+    // "width": 1280,
+    "margin-top": 4,
+    "margin-left": 10,
+    "margin-right": 10,
+    //"spacing": 10, // Gaps between modules in px
+
+    // Choose the order of the modules
+    "modules-left": ["hyprland/workspaces", "temperature"],
+    "modules-center": ["clock"],
+    "modules-right": [
+        "network",
+        "pulseaudio",
+        "backlight",
+        "battery",
+        "power-profiles-daemon",
+        "custom/theme"
+    ],
+
+    // Visual structural configs
+    // Left modules
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "on-click": "activate"
+    },
+    // Right modules
+    "network": {
+        "format-wifi": "  {essid}",
+        "format-ethernet": "   {ipaddr}",
+        "format-disconnected": "⚠  Disconnected",
+        "on-click": "nmtui"
+    },
+    "pulseaudio": {
+        "scroll-step": 1, // %, can be a float
+        "format": "{icon}  {volume}%",
+        "format-muted": " ",
+        "format-icons": {
+            "headphone": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format": " {temperatureC}°C"
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "tooltip": false
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      }
+    },
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+        "format": "{:%H:%M | %d-%m-%Y}"
+    },
+    "custom/theme": {
+        "format": "",
+        "on-click": "~/.config/waybar/toggle_theme.sh",
+        "tooltip": true,
+        "tooltip-format": "Switch Theme"
+    }
+}

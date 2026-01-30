@@ -1,0 +1,43 @@
+@import "theme.css";
+
+/* Global styling */
+* {
+    font-family: "JetBrainsMono Nerd Font", Roboto, sans-serif;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#custom-theme,
+#workspaces,
+#window,
+#clock,
+#pulseaudio,
+#network,
+#temperature,
+#backlight,
+#power-profiles-daemon,
+#battery {
+    background-color: @base;
+    color: @text;
+    padding: 0px 10px;
+    margin: 4px 3px;
+    border-radius: 15px;
+    border: 1px solid @surface1;
+}
+
+#custom-theme {
+    color: @mauve;
+    font-weight: bold;
+}
+
+/* Use the variables from the imported theme */
+#workspaces button.active { color: @mauve; }
+#clock { color: @blue; }
+#network { color: @sky; }
+#pulseaudio { color: @sapphire; }
+#battery { color: @green; }
