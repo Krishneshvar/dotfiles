@@ -1,27 +1,15 @@
 configuration {
     modi: "drun,run,filebrowser,window";
-    font: "JetBrainsMonoNL Nerd Font Mono";
+    font: "JetBrainsMono Nerd Font 11";
     show-icons: true;
-
+    icon-theme: "Papirus";
     drun-display-format: "{icon} {name}";
-	display-drun: "☰";
-	display-window: "󰕰";
-    display-run: " ";
-    display-filebrowser: " ";
-
-    window-format: "{w} · {c} · {t}";
+    display-drun: "   Apps ";
+    display-run: "   Run ";
+    display-filebrowser: "   Files ";
+    display-window: " 󰕰  Window ";
     sidebar-mode: true;
-
-    prompt: "Hi";
-
-    timeout {
-		action: "kb-cancel";
-		delay:  0;
-	}
-	filebrowser {
-		directories-first: true;
-		sorting-method:    "name";
-	}
+    window-format: "{w} · {c} · {t}";
 }
 
-@theme "custom-theme.rasi"
+@theme "style.rasi"
