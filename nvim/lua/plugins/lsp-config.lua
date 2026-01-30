@@ -30,7 +30,7 @@ return {
           "gopls",                -- Go
           "intelephense",         -- PHP (feature-rich)
           "pyright",              -- Python (including Django projects)
-          "rust_analyzer", "rustup",-- Rust
+          "rust_analyzer",        -- Rust
           "sqlls",                -- SQL & Postgres
 
           -- Docker & DevOps:
@@ -70,92 +70,47 @@ return {
       end
 
       -- Setup capabilities (e.g., for nvim-cmp)
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
       local cmp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
       if cmp_status then
         capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
       end
 
-      local lspconfig = require("lspconfig")
+      local lsp_servers = require("lspconfig")
 
-      -- Frontend/JS ecosystem:
-      lspconfig.angularls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.cssls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.html.setup({
+      local default_servers = {
+        "angularls", "cssls", "jsonls", "marksman", "clangd", "omnisharp",
+        "jdtls", "gopls", "intelephense", "pyright", "rust_analyzer",
+        "sqlls", "dockerls", "docker_compose_language_service",
+        "graphql", "tinymist", "vuels", "lemminx"
+      }
+
+      for _, lsp in ipairs(default_servers) do
+	vim.lsp.config(lsp, {
+          on_attach = on_attach,
+          capabilities = capabilities,
+        })
+	vim.lsp.enable(lsp)
+      end
+
+      -- HTML & HTMX
+      vim.lsp.config("html", {
         filetypes = { "html", "htmx" },
         on_attach = on_attach,
         capabilities = capabilities,
       })
-      lspconfig.ts_ls.setup({
-        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.jsonls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
+      vim.lsp.enable("html")
 
-      -- Backend, systems, and general-purpose languages:
-      lspconfig.clangd.setup({
+      -- TypeScript / JavaScript / React
+      vim.lsp.config("ts_ls", {
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
         on_attach = on_attach,
         capabilities = capabilities,
       })
-      lspconfig.omnisharp.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.jdtls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.gopls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.intelephense.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.pyright.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.rust_analyzer.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.sqlls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
+      vim.lsp.enable("ts_ls")
 
-      -- Docker/DevOps:
-      lspconfig.dockerls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.docker_compose_language_service.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-
-      -- Other ecosystems:
-      --lspconfig.dartls.setup({
-      --  on_attach = on_attach,
-      --  capabilities = capabilities,
-      --})
-      lspconfig.graphql.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.lua_ls.setup({
+      -- Lua (specifically for Neovim development)
+      vim.lsp.config("lua_ls", {
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -165,29 +120,21 @@ return {
           },
         },
       })
-      lspconfig.tinymist.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.vuels.setup({
-        on_attach = on_attach,
-       capabilities = capabilities,
-      })
-      lspconfig.lemminx.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      lspconfig.yamlls.setup({
+      vim.lsp.enable("lua_ls")
+
+      -- YAML / Kubernetes
+      vim.lsp.config("yamlls", {
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
           yaml = {
             schemas = {
-              kubernetes = "/*",  -- Adjust this schema mapping per project as needed
+              kubernetes = "/*",
             },
           },
         },
       })
+      vim.lsp.enable("yamlls")
     end,
   },
 }

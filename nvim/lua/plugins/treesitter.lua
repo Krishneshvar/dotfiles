@@ -1,10 +1,15 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-
+  lazy = false,
   config = function()
-    local config = require("nvim-treesitter.configs")
-    config.setup({
+    local status, treesitter = pcall(require, "nvim-treesitter.configs")
+    if not status then
+        print("Treesitter configuration could not be loaded!")
+        return
+    end
+
+    treesitter.setup({
       ensure_installed = {
         "angular",
         "arduino",
@@ -44,3 +49,4 @@ return {
     })
   end,
 }
+
