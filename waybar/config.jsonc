@@ -17,7 +17,8 @@
         "backlight",
         "battery",
         "power-profiles-daemon",
-        "custom/theme"
+        "custom/theme",
+        "custom/controlcenter"
     ],
 
     // Visual structural configs
@@ -82,5 +83,11 @@
         "on-click": "~/.config/waybar/toggle_theme.sh",
         "tooltip": true,
         "tooltip-format": "Switch Theme"
+    },
+        "custom/controlcenter": {
+        "format": "  ", // Or use any icon you like
+        "on-click": "ags toggle control-center",
+        "tooltip": false
     }
 }
+

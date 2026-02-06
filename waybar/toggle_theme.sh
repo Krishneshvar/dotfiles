@@ -23,3 +23,4 @@ fi
 
 # Reload Waybar styling
 pkill -USR2 waybar
+
