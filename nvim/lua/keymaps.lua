@@ -14,7 +14,7 @@ vim.keymap.set('n', '<leader>b', '<cmd> enew <CR>', opts)
 vim.keymap.set('n', '<leader>v', '<C-w>v', opts) -- split window vertically
 vim.keymap.set('n', '<leader>h', '<C-w>s', opts) -- split window horizontally
 vim.keymap.set('n', '<leader>se', '<C-w>=', opts) -- make split windows equal width & height
-vim.keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window
+vim.keymap.set('n', '<leader>q', ':close<CR>', opts) -- close current split window
 
 -- Resize splits with arrows
 vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', opts)
