@@ -1,0 +1,40 @@
+{
+  "positionX": "right",
+  "positionY": "top",
+  "layer": "overlay",
+
+  "control-center-width": 380,
+  "control-center-margin-top": 12,
+  "control-center-margin-right": 12,
+
+  "notification-window-width": 360,
+  "notification-icon-size": 48,
+
+  "widgets": [
+    "title",
+    "dnd",
+    "mpris",
+    "volume",
+    "notifications"
+  ],
+
+  "widget-config": {
+    "title": {
+      "text": "Control Center"
+    },
+
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+
+    "mpris": {
+      "image-size": 64,
+      "blur": false
+    },
+
+    "volume": {
+      "label": "Volume"
+    }
+  }
+}
+

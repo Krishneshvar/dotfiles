@@ -1,0 +1,117 @@
+@import url("/home/krish/.config/matugen/generated/colors.css");
+
+/* =========================
+   Global
+   ========================= */
+* {
+  font-family: Inter, JetBrainsMono Nerd Font, sans-serif;
+  font-size: 13px;
+  color: @fg;
+}
+
+/* =========================
+   Control Center Panel
+   ========================= */
+.control-center {
+  background: @bg;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 10px;
+  border: 1px solid @outline;
+}
+
+/* =========================
+   Title
+   ========================= */
+.control-center .title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: @fg;
+}
+
+/* =========================
+   Widgets Base
+   ========================= */
+.dnd,
+.mpris,
+.volume {
+  background: @bg_alt;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+/* =========================
+   Do Not Disturb
+   ========================= */
+.dnd label {
+  color: @fg_muted;
+}
+
+/* =========================
+   Media (MPRIS)
+   ========================= */
+.mpris .title {
+  color: @fg;
+  font-weight: 600;
+}
+
+.mpris .artist {
+  color: @fg_muted;
+}
+
+/* =========================
+   Volume
+   ========================= */
+.volume scale trough {
+  background: @bg_alt2;
+  border-radius: 999px;
+  min-height: 6px;
+}
+
+.volume scale highlight {
+  background: @accent;
+  border-radius: 999px;
+}
+
+/* =========================
+   Notifications
+   ========================= */
+.notification {
+  background: @bg_alt;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.notification .summary {
+  color: @fg;
+  font-weight: 600;
+}
+
+.notification .body {
+  color: @fg_muted;
+}
+
+/* Low urgency */
+.notification.low {
+  opacity: 0.7;
+}
+
+/* Critical */
+.notification.critical {
+  border-left: 3px solid @error;
+}
+
+/* =========================
+   Buttons / Hover
+   ========================= */
+button {
+  background: transparent;
+  border-radius: 10px;
+}
+
+button:hover {
+  background: @bg_alt2;
+}
+

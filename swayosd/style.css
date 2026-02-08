@@ -1,0 +1,35 @@
+@import url("/home/krish/.config/matugen/generated/colors.css");
+
+/* =========================
+   Window
+   ========================= */
+window {
+  background: @bg;
+  border-radius: 14px;
+  padding: 5px;
+  border: 1px solid @outline;
+}
+
+/* =========================
+   Label
+   ========================= */
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: @fg;
+}
+
+/* =========================
+   Progress Bar
+   ========================= */
+progressbar trough {
+  background: @bg_alt2;
+  border-radius: 10px;
+  min-height: 6px;
+}
+
+progressbar progress {
+  background: @accent;
+  border-radius: 10px;
+}
+
