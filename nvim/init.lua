@@ -1,6 +1,9 @@
 require 'options'
 require 'keymaps'
 
+-- Import matugen generated palette
+dofile(vim.fn.expand("~/.config/matugen/generated/nvim.lua"))
+
 -- Lazy.nvim installation
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
