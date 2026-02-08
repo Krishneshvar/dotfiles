@@ -1,0 +1,80 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Main Left Prompt
+format = """
+[](fg:{{colors.primary.default.hex}})\
+$username\
+[](fg:{{colors.primary.default.hex}} bg:{{colors.tertiary.default.hex}})\
+$directory\
+[](fg:{{colors.tertiary.default.hex}} bg:{{colors.surface_variant.default.hex}})\
+$git_branch\
+$git_status\
+[](fg:{{colors.surface_variant.default.hex}} bg:{{colors.secondary.default.hex}})\
+$c$rust$golang$nodejs$java$python\
+[](fg:{{colors.secondary.default.hex}})\
+$line_break$character"""
+
+# Right Prompt: Command Duration
+right_format = """$cmd_duration"""
+
+[username]
+show_always = true
+style_user = "bg:{{colors.primary.default.hex}} fg:{{colors.on_primary.default.hex}}"
+style_root = "bg:{{colors.error.default.hex}} fg:{{colors.on_error.default.hex}}"
+format = '[ $user ]($style)'
+
+[directory]
+style = "bg:{{colors.tertiary.default.hex}} fg:{{colors.on_tertiary.default.hex}}"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = "  "
+style = "bg:{{colors.surface_variant.default.hex}} fg:{{colors.on_surface_variant.default.hex}}"
+format = '[ $symbol$branch ]($style)'
+
+[git_status]
+style = "bg:{{colors.surface_variant.default.hex}} fg:{{colors.error.default.hex}}"
+format = '[$all_status$ahead_behind]($style)'
+
+[cmd_duration]
+min_time = 0
+show_milliseconds = false
+style = "fg:{{colors.on_secondary_container.default.hex}} bg:{{colors.secondary_container.default.hex}}"
+format = '[](fg:{{colors.secondary_container.default.hex}})[ 󱎫 $duration ]($style)[](fg:{{colors.secondary_container.default.hex}})'
+
+# Language Modules
+[nodejs]
+symbol = "  nodejs"
+style = "bg:{{colors.secondary.default.hex}} fg:{{colors.on_secondary.default.hex}}"
+format = '[$symbol]($style)'
+
+[c]
+symbol = "  c"
+style = "bg:{{colors.secondary.default.hex}} fg:{{colors.on_secondary.default.hex}}"
+format = '[$symbol]($style)'
+
+[rust]
+symbol = "  rust"
+style = "bg:{{colors.secondary.default.hex}} fg:{{colors.on_secondary.default.hex}}"
+format = '[$symbol]($style)'
+
+[golang]
+symbol = "  golang"
+style = "bg:{{colors.secondary.default.hex}} fg:{{colors.on_secondary.default.hex}}"
+format = '[$symbol]($style)'
+
+[python]
+symbol = "  python"
+style = "bg:{{colors.secondary.default.hex}} fg:{{colors.on_secondary.default.hex}}"
+format = '[$symbol]($style)'
+
+[java]
+symbol = "  java"
+style = "bg:{{colors.secondary.default.hex}} fg:{{colors.on_secondary.default.hex}}"
+format = '[$symbol]($style)'
+
+[character]
+success_symbol = '[ ](bold fg:{{colors.primary.default.hex}})'
+error_symbol = '[ ](bold fg:{{colors.error.default.hex}})'

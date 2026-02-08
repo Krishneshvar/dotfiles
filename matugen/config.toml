@@ -1,0 +1,12 @@
+[config]
+reload_apps = false
+
+[templates]
+"colors.css" = { input_path = "templates/colors.css", output_path = "generated/colors.css" }
+"hyprland.conf" = { input_path = "templates/hyprland.conf", output_path = "generated/hyprland.conf" }
+"hyprlock.conf" = { input_path = "templates/hyprlock.conf", output_path = "generated/hyprlock.conf" }
+"kitty.conf" = { input_path = "templates/kitty.conf", output_path = "generated/kitty.conf" }
+"rofi.rasi" = { input_path = "templates/rofi.rasi", output_path = "generated/rofi.rasi" }
+"nvim.lua" = { input_path = "templates/nvim.lua", output_path = "generated/nvim.lua" }
+"starship.toml" = { input_path = "templates/starship.toml", output_path = "~/.config/starship.toml" }
+
