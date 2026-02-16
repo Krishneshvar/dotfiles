@@ -2,16 +2,16 @@
 
 # Main Left Prompt
 format = """
-[](fg:#afc6ff)\
+[](fg:#92cef5)\
 $username\
-[](fg:#afc6ff bg:#dfbbde)\
+[](fg:#92cef5 bg:#ccc1e9)\
 $directory\
-[](fg:#dfbbde bg:#44474f)\
+[](fg:#ccc1e9 bg:#41484d)\
 $git_branch\
 $git_status\
-[](fg:#44474f bg:#bfc6dc)\
+[](fg:#41484d bg:#b6c9d8)\
 $c$rust$golang$nodejs$java$python\
-[](fg:#bfc6dc)\
+[](fg:#b6c9d8)\
 $line_break$character"""
 
 # Right Prompt: Command Duration
@@ -19,62 +19,62 @@ right_format = """$cmd_duration"""
 
 [username]
 show_always = true
-style_user = "bg:#afc6ff fg:#132f60"
+style_user = "bg:#92cef5 fg:#00344b"
 style_root = "bg:#ffb4ab fg:#690005"
 format = '[ $user ]($style)'
 
 [directory]
-style = "bg:#dfbbde fg:#402843"
+style = "bg:#ccc1e9 fg:#332c4b"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
 [git_branch]
 symbol = "  "
-style = "bg:#44474f fg:#c5c6d0"
+style = "bg:#41484d fg:#c1c7ce"
 format = '[ $symbol$branch ]($style)'
 
 [git_status]
-style = "bg:#44474f fg:#ffb4ab"
+style = "bg:#41484d fg:#ffb4ab"
 format = '[$all_status$ahead_behind]($style)'
 
 [cmd_duration]
 min_time = 0
 show_milliseconds = false
-style = "fg:#dbe2f9 bg:#3f4759"
-format = '[](fg:#3f4759)[ 󱎫 $duration ]($style)[](fg:#3f4759)'
+style = "fg:#d2e5f4 bg:#374955"
+format = '[](fg:#374955)[ 󱎫 $duration ]($style)[](fg:#374955)'
 
 # Language Modules
 [nodejs]
 symbol = "  nodejs"
-style = "bg:#bfc6dc fg:#293041"
+style = "bg:#b6c9d8 fg:#21323e"
 format = '[$symbol]($style)'
 
 [c]
 symbol = "  c"
-style = "bg:#bfc6dc fg:#293041"
+style = "bg:#b6c9d8 fg:#21323e"
 format = '[$symbol]($style)'
 
 [rust]
 symbol = "  rust"
-style = "bg:#bfc6dc fg:#293041"
+style = "bg:#b6c9d8 fg:#21323e"
 format = '[$symbol]($style)'
 
 [golang]
 symbol = "  golang"
-style = "bg:#bfc6dc fg:#293041"
+style = "bg:#b6c9d8 fg:#21323e"
 format = '[$symbol]($style)'
 
 [python]
 symbol = "  python"
-style = "bg:#bfc6dc fg:#293041"
+style = "bg:#b6c9d8 fg:#21323e"
 format = '[$symbol]($style)'
 
 [java]
 symbol = "  java"
-style = "bg:#bfc6dc fg:#293041"
+style = "bg:#b6c9d8 fg:#21323e"
 format = '[$symbol]($style)'
 
 [character]
-success_symbol = '[ ](bold fg:#afc6ff)'
+success_symbol = '[ ](bold fg:#92cef5)'
 error_symbol = '[ ](bold fg:#ffb4ab)'

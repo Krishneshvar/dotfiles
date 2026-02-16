@@ -1,58 +1,92 @@
-@import "theme.css";
+@import url("file:///home/krish/.config/matugen/generated/colors.css");
 
-/* Global styling */
+/* ========== Global ========== */
 * {
     font-family: "JetBrainsMono Nerd Font", Roboto, sans-serif;
     font-size: 13px;
     border: none;
     border-radius: 0;
+    min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
 }
 
-#custom-theme,
+/* ========== Shared module base ========== */
 #workspaces,
-#window,
 #clock,
 #pulseaudio,
 #network,
 #temperature,
 #backlight,
+#battery,
 #power-profiles-daemon,
-#battery {
-    background-color: @base;
-    color: @text;
-    padding: 0px 10px;
-    margin: 4px 3px;
-    border-radius: 15px;
-    border: 1px solid @surface1;
+#custom-notifications {
+    background-color: @bg_alt;
+    color: @fg;
+    padding: 0 12px;
+    margin: 4px 4px;
+    border-radius: 14px;
+    border: 1px solid @outline;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-#custom-theme {
-    color: @mauve;
-    font-weight: bold;
+/* ========== Workspaces ========== */
+#workspaces {
+    padding: 0 6px;
 }
 
-/* Use the variables from the imported theme */
-#workspaces button.active { color: @mauve; }
-#clock { color: @blue; }
-#network { color: @sky; }
-#pulseaudio { color: @sapphire; }
-#battery { color: @green; }
-
-#custom-controlcenter {
-    background-color: #313244;
-    color: #89b4fa;
-    border-radius: 12px;
-    padding: 0 10px;
+#workspaces button {
+    background: transparent;
+    color: @fg_muted;
+    padding: 0 8px;
     margin: 4px 2px;
-    transition: all 0.3s ease;
+    border-radius: 10px;
 }
 
-#custom-controlcenter:hover {
-    background-color: #cba6f7;
-    color: #1e1e2e;
+#workspaces button.active {
+    background-color: @accent;
+    color: @accent_fg;
+}
+
+#workspaces button.urgent {
+    background-color: @error;
+    color: @error_fg;
+}
+
+/* ========== Clock (center anchor) ========== */
+#clock {
+    background-color: @bg_alt2;
+    font-weight: 600;
+}
+
+/* ========== Network ========== */
+#network {
+    color: @accent;
+}
+
+/* ========== Audio ========== */
+#pulseaudio.muted {
+    color: @fg_muted;
+}
+
+/* ========== Temperature ========== */
+#temperature.critical {
+    color: @error;
+}
+
+/* ========== Battery ========== */
+#battery.warning {
+    color: @warning;
+}
+
+#battery.critical {
+    color: @error;
+}
+
+/* ========== Notifications ========== */
+#custom-notifications {
+    padding: 0 10px;
 }
 

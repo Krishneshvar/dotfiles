@@ -1,0 +1,3 @@
+ok then lets just get on with the scripting part for everything we've configured so far. It might be hard for you to remember all the configurations we've done. So I'll let Antigravity do the job of scripting. It has access to my local version controlled git repo of all the dotfiles.
+
+So give me a very high quality and detailed prompt on what we did and what Antigravity should do to change themes
