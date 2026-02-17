@@ -1,15 +1,7 @@
-@import "/home/krish/.config/matugen/generated/rofi.rasi"
+@import "base.rasi"
 
 window {
     width: 600px;
-    background-color: @bg;
-    
-    /* The Border */
-    border: 2px;
-    border-color: @border-col;
-    border-radius: 20px;
-    
-    padding: 0;
 }
 
 mainbox {
@@ -18,7 +10,6 @@ mainbox {
     children: [ "inputbar", "listview", "mode-switcher" ];
 }
 
-/* ========== Search Bar ========== */
 inputbar {
     padding: 30px 30px 15px 30px;
     background-color: transparent;
@@ -34,7 +25,6 @@ entry {
     border-radius: 100px;
 }
 
-/* ========== List View ========== */
 listview {
     padding: 10px 30px;
     spacing: 10px;
@@ -67,7 +57,6 @@ element-text {
     text-color: inherit; /* Inherits @on-accent when selected */
 }
 
-/* ========== Mode Switcher (Bottom Tabs) ========== */
 mode-switcher {
     margin: 15px 30px 30px 30px;
     spacing: 10px;
@@ -86,4 +75,3 @@ button selected {
     background-color: @accent;
     text-color: @on-accent; /* Fixes contrast on bottom tabs */
 }
-

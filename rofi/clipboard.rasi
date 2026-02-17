@@ -1,0 +1,29 @@
+@import "base.rasi"
+
+window {
+    width: 500px;
+    background-color: transparent;
+    border-radius: 15px;
+}
+
+listview {
+    background-color: transparent;
+    lines: 12;
+    spacing: 6px;
+    padding: 15px;
+}
+
+element {
+    background-color: transparent;
+    padding: 8px 12px;
+    border-radius: 12px;
+}
+
+element selected.normal {
+    background-color: @accent;
+    text-color: @on-accent;
+}
+
+element-icon {
+    size: 18px;
+}

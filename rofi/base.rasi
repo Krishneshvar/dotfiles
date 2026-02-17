@@ -1,0 +1,15 @@
+@import "/home/krish/.config/matugen/generated/rofi.rasi"
+
+* {
+    background-color: @bg;
+    text-color: @fg;
+}
+
+window {
+    background-color: @bg;
+    border: 2px;
+    border-color: @border-col;
+    border-radius: 20px;
+    padding: 0;
+}
+
