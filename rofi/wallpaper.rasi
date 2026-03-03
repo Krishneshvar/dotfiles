@@ -1,8 +1,8 @@
 @import "base.rasi"
 
 window {
-    width: 1000px;
-    border-radius: 18px;
+    width: 1100px;
+    border-radius: 20px;
 }
 
 mainbox {
@@ -11,29 +11,32 @@ mainbox {
 }
 
 listview {
-    background-color: transparent;
     layout: horizontal;
     lines: 2;
     columns: 4;
-    spacing: 20px;
+    spacing: 25px;
     padding: 30px;
+    scrollbar: false;
 }
 
 element {
-    background-color: transparent;
     orientation: vertical;
-    padding: 10px;
-    border-radius: 18px;
-    text-align: center;
+    padding: 12px;
+    border-radius: 16px;
+    background-color: transparent;
 }
 
 element-icon {
-    background-color: transparent;
-    size: 200px;
+    size: 220px;
+    border-radius: 14px;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    margin: 8px 0 0 0;
 }
 
 element selected.normal {
-    text-align: center;
     background-color: @accent;
     text-color: @on-accent;
 }

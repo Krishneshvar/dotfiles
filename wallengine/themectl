@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 BASE="$HOME/.config/wallengine"
 THEMES_DIR="$BASE/themes"
@@ -6,77 +6,126 @@ STATE_DIR="$BASE/state"
 
 mkdir -p "$STATE_DIR"
 
-set_wallpaper() {
+reload_ui() {
+    pgrep -x waybar >/dev/null 2>&1 && killall -SIGUSR2 waybar
+    pgrep -x swaync >/dev/null 2>&1 && killall -SIGUSR2 swaync
+    pgrep -x swayosd-server >/dev/null 2>&1 && {
+        killall swayosd-server
+        swayosd-server >/dev/null 2>&1 &
+    }
+}
+
+apply_wall() {
     WALL="$1"
     THEME="$2"
+
+    [ ! -f "$WALL" ] && exit 1
 
     echo "$THEME" > "$STATE_DIR/current_theme"
     echo "$WALL" > "$STATE_DIR/current_wallpaper"
 
+    case "$WALL" in
+        *.gif|*.mp4|*.webm)
+            FPS=30
+            ;;
+        *)
+            FPS=60
+            ;;
+    esac
+
     swww img "$WALL" \
         --transition-type grow \
         --transition-duration 1 \
-        --transition-fps 30
+        --transition-fps "$FPS"
 
-    if command -v matugen >/dev/null; then
+    if command -v matugen >/dev/null 2>&1; then
         matugen image "$WALL"
     fi
 
-    if pgrep -x waybar >/dev/null; then
-        killall -SIGUSR2 waybar
-    fi
-
+    reload_ui
     hyprctl reload >/dev/null 2>&1
 }
 
-random_theme_wallpaper() {
+random() {
     THEME=$(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d | shuf -n 1 | xargs basename)
     WALL=$(find "$THEMES_DIR/$THEME" -type f | shuf -n 1)
-
     [ -z "$WALL" ] && exit 1
-
-    set_wallpaper "$WALL" "$THEME"
+    apply_wall "$WALL" "$THEME"
 }
 
 set_theme() {
     THEME="$1"
-
-    if [ ! -d "$THEMES_DIR/$THEME" ]; then
-        echo "Theme does not exist"
-        exit 1
-    fi
-
+    [ ! -d "$THEMES_DIR/$THEME" ] && exit 1
     WALL=$(find "$THEMES_DIR/$THEME" -type f | shuf -n 1)
-    set_wallpaper "$WALL" "$THEME"
+    apply_wall "$WALL" "$THEME"
 }
 
-current_theme() {
-    cat "$STATE_DIR/current_theme"
+choose_theme() {
+    LIST=""
+
+    for DIR in "$THEMES_DIR"/*; do
+        [ -d "$DIR" ] || continue
+
+        THEME_NAME=$(basename "$DIR")
+
+        # Use first file as preview
+        PREVIEW=$(find "$DIR" -type f | head -n 1)
+
+        LIST="${LIST}${THEME_NAME}\0icon\x1f${PREVIEW}\n"
+    done
+
+    CHOICE=$(printf "$LIST" | rofi -dmenu \
+        -theme "$HOME/.config/rofi/wallpaper.rasi" \
+        -show-icons)
+
+    [ -z "$CHOICE" ] && exit 0
+
+    set_theme "$CHOICE"
 }
 
-list_themes() {
-    find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d | xargs -n1 basename
+choose_wallpaper() {
+    THEME=$(cat "$STATE_DIR/current_theme" 2>/dev/null)
+    [ -z "$THEME" ] && exit 1
+
+    COUNT=0
+    LIST=""
+
+    for WALL in "$THEMES_DIR/$THEME"/*; do
+        [ -f "$WALL" ] || continue
+
+        BASENAME=$(basename "$WALL")
+
+        LIST="${LIST}${BASENAME}\0icon\x1f${WALL}\n"
+
+        COUNT=$((COUNT+1))
+        [ "$COUNT" -ge 300 ] && break
+    done
+
+    CHOICE=$(printf "$LIST" | rofi -dmenu \
+        -theme "$HOME/.config/rofi/wallpaper.rasi" \
+        -show-icons)
+
+    [ -z "$CHOICE" ] && exit 0
+
+    FULL_PATH="$THEMES_DIR/$THEME/$CHOICE"
+
+    apply_wall "$FULL_PATH" "$THEME"
+}
+
+list() {
+    find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d -printf "%f\n"
+}
+
+current() {
+    cat "$STATE_DIR/current_theme" 2>/dev/null
 }
 
 case "$1" in
-    random)
-        random_theme_wallpaper
-        ;;
-    set)
-        set_theme "$2"
-        ;;
-    current)
-        current_theme
-        ;;
-    list)
-        list_themes
-        ;;
-    *)
-        echo "Usage:"
-        echo "  themectl random"
-        echo "  themectl set <theme>"
-        echo "  themectl current"
-        echo "  themectl list"
-        exit 1
-        ;;
+    random) random ;;
+    set) set_theme "$2" ;;
+    choose-theme) choose_theme ;;
+    choose-wall) choose_wallpaper ;;
+    list) list ;;
+    current) current ;;
+    *) echo "Usage: themectl [random|set|choose-theme|choose-wall|list|current]" ;;
 esac
