@@ -1,0 +1,82 @@
+#!/bin/bash
+
+BASE="$HOME/.config/wallengine"
+THEMES_DIR="$BASE/themes"
+STATE_DIR="$BASE/state"
+
+mkdir -p "$STATE_DIR"
+
+set_wallpaper() {
+    WALL="$1"
+    THEME="$2"
+
+    echo "$THEME" > "$STATE_DIR/current_theme"
+    echo "$WALL" > "$STATE_DIR/current_wallpaper"
+
+    swww img "$WALL" \
+        --transition-type grow \
+        --transition-duration 1 \
+        --transition-fps 30
+
+    if command -v matugen >/dev/null; then
+        matugen image "$WALL"
+    fi
+
+    if pgrep -x waybar >/dev/null; then
+        killall -SIGUSR2 waybar
+    fi
+
+    hyprctl reload >/dev/null 2>&1
+}
+
+random_theme_wallpaper() {
+    THEME=$(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d | shuf -n 1 | xargs basename)
+    WALL=$(find "$THEMES_DIR/$THEME" -type f | shuf -n 1)
+
+    [ -z "$WALL" ] && exit 1
+
+    set_wallpaper "$WALL" "$THEME"
+}
+
+set_theme() {
+    THEME="$1"
+
+    if [ ! -d "$THEMES_DIR/$THEME" ]; then
+        echo "Theme does not exist"
+        exit 1
+    fi
+
+    WALL=$(find "$THEMES_DIR/$THEME" -type f | shuf -n 1)
+    set_wallpaper "$WALL" "$THEME"
+}
+
+current_theme() {
+    cat "$STATE_DIR/current_theme"
+}
+
+list_themes() {
+    find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d | xargs -n1 basename
+}
+
+case "$1" in
+    random)
+        random_theme_wallpaper
+        ;;
+    set)
+        set_theme "$2"
+        ;;
+    current)
+        current_theme
+        ;;
+    list)
+        list_themes
+        ;;
+    *)
+        echo "Usage:"
+        echo "  themectl random"
+        echo "  themectl set <theme>"
+        echo "  themectl current"
+        echo "  themectl list"
+        exit 1
+        ;;
+esac
