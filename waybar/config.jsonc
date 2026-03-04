@@ -1,12 +1,12 @@
 {
     "layer": "top", // Waybar at top layer
-    "position": "top", // position (top|bottom|left|right)
-    "height": 30, // remove for auto height
+    "position": "top", // Position (top|bottom|left|right)
+    "height": 30, // Remove for auto height
     "margin-top": 4,
     "margin-left": 10,
     "margin-right": 10,
     //"spacing": 10, // Gaps between modules in px
-    // Choose the order of the modules
+    // Order of the modules
     "modules-left": [
         "hyprland/workspaces"
     ],
@@ -17,11 +17,9 @@
         "network",
         "bluetooth",
         "pulseaudio",
-        "backlight",
         "battery",
         "custom/notifications"
     ],
-    // Visual structural configs
     // Left module
     "hyprland/workspaces": {
         "format": "{name}",
@@ -53,8 +51,12 @@
     // Right modules
     "network": {
         "format-wifi": "  {essid}",
-        "format-ethernet": "   {ipaddr}",
-        "format-disconnected": "⚠  Disconnected",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-disconnected": "󰖪  No Internet",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "tooltip-format-wifi": "{essid} ({signaldBm}dBm) ",
+        "tooltip-format-ethernet": "{ifname} ",
+        "tooltip-format-disconnected": "Disconnected",
         "on-click": "nm-connection-editor"
     },
     "bluetooth": {
@@ -68,33 +70,28 @@
         "on-click": "blueman-manager"
     },
     "pulseaudio": {
-        "scroll-step": 1, // %, can be a float
-        "format": "{icon}  {volume}%",
-        "format-muted": " ",
+        "scroll-step": 1,
+        "format": "{icon} {volume}%  {format_source}",
+        "format-bluetooth": "{icon} {volume}%  {format_source}",
+        "format-bluetooth-muted": "󰝟   {format_source}",
+        "format-muted": "󰝟  {format_source}",
+        "format-source": "",
+        "format-source-muted": "",
         "format-icons": {
             "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
             "default": [
                 "",
                 "",
                 ""
             ]
         },
-        "on-click": "pavucontrol"
-    },
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        ],
-        "tooltip": false
+        "on-click": "pavucontrol",
+        "tooltip-format": "{icon} {desc} | {volume}%"
     },
     "battery": {
         "states": {
@@ -102,7 +99,8 @@
             "critical": 15
         },
         "format": "{icon}  {capacity}%",
-        "format-charging": "  {capacity}%",
+        "format-full": "  Full",
+        "format-charging": "󱐌 {capacity}%",
         "format-plugged": "  {capacity}%",
         "format-icons": [
             "",
