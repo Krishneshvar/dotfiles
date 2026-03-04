@@ -35,10 +35,12 @@
    ========================= */
 .dnd,
 .mpris,
-.volume {
+.volume,
+.backlight {
   background: @bg_alt;
   border-radius: 14px;
   padding: 12px;
+  margin: 6px 0;
 }
 
 /* =========================
@@ -63,16 +65,19 @@
 /* =========================
    Volume
    ========================= */
-.volume scale trough {
+.volume scale trough,
+.backlight scale trough {
   background: @bg_alt2;
   border-radius: 999px;
-  min-height: 6px;
+  min-height: 10px;
 }
 
-.volume scale highlight {
+.volume scale highlight,
+.backlight scale highlight {
   background: @accent;
   border-radius: 999px;
 }
+
 
 /* =========================
    Notifications
