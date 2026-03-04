@@ -13,35 +13,55 @@
    Control Center Panel
    ========================= */
 .control-center {
-  background: @bg;
-  border-radius: 18px;
+  background-color: alpha(@bg, 0.85);
+  border-radius: 20px;
   padding: 16px;
-  margin-bottom: 10px;
-  border: 1px solid @outline;
+  border: 2px solid @outline;
+}
+
+/* Blur is handled by Hyprland */
+.control-center {
+  backdrop-filter: blur(20px);
+}
+
+/* Ensure no background "leaks" from the list container or scroll areas */
+.control-center-list,
+.control-center-list-placeholder,
+.control-center list,
+.control-center scroller,
+.control-center viewport,
+.control-center contents {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* =========================
    Title
    ========================= */
 .control-center .title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 14px;
-  color: @fg;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px 4px;
+  color: @accent;
+}
+
+.control-center .title button {
+  background: alpha(@bg_alt, 0.5);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 12px;
 }
 
 /* =========================
    Widgets Base
    ========================= */
-.dnd,
-.mpris,
-.volume,
-.backlight,
 .buttons-grid {
-  background: @bg_alt;
+  background-color: alpha(@bg_alt, 0.4);
   border-radius: 14px;
-  padding: 12px;
-  margin: 6px 0;
+  padding: 4px;
+  margin: 8px 0;
 }
 
 /* =========================
@@ -68,51 +88,102 @@
   color: @accent_fg;
 }
 
+/* =========================
+   Volume & Backlight Sliders
+   ========================= */
+.widget-volume,
+.widget-backlight {
+  background: transparent;
+  padding: 0px 12px;
+  margin: 0px 0;
+}
+
+/* Increase the height of the entire slider area */
+.widget-volume scale,
+.widget-backlight scale {
+  min-height: 18px;
+}
+
+/* Style the background of the slider */
+.widget-volume scale trough,
+.widget-backlight scale trough {
+  background-color: alpha(@fg, 0.1);
+  border-radius: 999px;
+  min-height: 18px;
+}
+
+/* Style the active part of the slider */
+.widget-volume scale highlight,
+.widget-backlight scale highlight,
+.widget-volume scale progress,
+.widget-backlight scale progress {
+  background-color: @accent;
+  border-radius: 999px;
+  min-height: 18px;
+}
+
+/* Completely hide the white dot (knob) */
+.widget-volume scale slider,
+.widget-backlight scale slider {
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 /* =========================
-   Do Not Disturb
+   Do Not Disturb Toggle
    ========================= */
+.dnd {
+  background: transparent;
+  padding: 8px 12px;
+  margin: 4px 0;
+}
+
 .dnd label {
-  color: @fg_muted;
-}
-
-/* =========================
-   Media (MPRIS)
-   ========================= */
-.mpris .title {
+  font-size: 14px;
+  font-weight: 500;
   color: @fg;
-  font-weight: 600;
 }
 
-.mpris .artist {
-  color: @fg_muted;
-}
-
-/* =========================
-   Volume
-   ========================= */
-.volume scale trough,
-.backlight scale trough {
-  background: @bg_alt2;
+.dnd switch {
+  background-color: alpha(@bg_alt, 0.5);
   border-radius: 999px;
-  min-height: 10px;
+  border: 1px solid alpha(@outline, 0.2);
+  min-width: 50px;
+  min-height: 24px;
 }
 
-.volume scale highlight,
-.backlight scale highlight {
+.dnd switch slider {
+  background: @fg_muted;
+  border-radius: 999px;
+  min-height: 18px;
+  min-width: 18px;
+  margin: 3px;
+  transition: all 0.2s ease;
+}
+
+.dnd switch:checked {
   background: @accent;
-  border-radius: 999px;
 }
 
+.dnd switch:checked slider {
+  background: white;
+}
 
 /* =========================
    Notifications
    ========================= */
 .notification {
-  background: @bg_alt;
+  background-color: @bg_alt;
   border-radius: 14px;
   padding: 12px;
-  margin-bottom: 8px;
+  margin: 8px 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .notification .summary {
@@ -124,18 +195,8 @@
   color: @fg_muted;
 }
 
-/* Low urgency */
-.notification.low {
-  opacity: 0.7;
-}
-
-/* Critical */
-.notification.critical {
-  border-left: 3px solid @error;
-}
-
 /* =========================
-   Buttons / Hover
+   Hover & global buttons
    ========================= */
 button {
   background: transparent;
