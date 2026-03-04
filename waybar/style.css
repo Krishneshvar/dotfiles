@@ -61,6 +61,28 @@ window#waybar {
     font-weight: 600;
 }
 
+tooltip {
+    background-color: @bg;
+    border: 1px solid @outline;
+    border-radius: 12px;
+}
+
+tooltip label {
+    color: @fg;
+    padding: 8px;
+}
+
+/* Calendar styling for the built-in tooltip */
+#clock tooltip {
+    padding: 15px;
+}
+
+#clock tooltip label {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+}
+
+
 /* ========== Network ========== */
 #network {
     color: @accent;
