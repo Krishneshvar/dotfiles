@@ -16,6 +16,7 @@ window#waybar {
 /* ========== Shared module base ========== */
 #workspaces,
 #clock,
+#bluetooth,
 #pulseaudio,
 #network,
 #temperature,
@@ -82,6 +83,11 @@ tooltip label {
     font-size: 14px;
 }
 
+
+/* ========== Bluetooth ========== */
+#bluetooth {
+    color: @accent_alt;
+}
 
 /* ========== Network ========== */
 #network {
