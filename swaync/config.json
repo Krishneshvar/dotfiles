@@ -8,16 +8,51 @@
   "notification-window-width": 360,
   "notification-icon-size": 48,
   "widgets": [
+    "title",
+    "buttons-grid",
     "volume",
     "backlight#screen",
-    "title",
     "dnd",
     "mpris",
     "notifications"
   ],
   "widget-config": {
     "title": {
-      "text": "Control Center"
+      "text": "Action Center"
+    },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "󰍬",
+          "command": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+          "type": "toggle",
+          "update-command": "bash -c 'wpctl get-mute @DEFAULT_AUDIO_SOURCE@ | grep -q \"MUTED\" && echo true || echo false'"
+        },
+        {
+          "label": "󰖩",
+          "command": "nmcli radio wifi toggle",
+          "type": "toggle",
+          "update-command": "bash -c 'nmcli radio wifi | grep -q \"enabled\" && echo true || echo false'"
+        },
+        {
+          "label": "󰂯",
+          "command": "bluetoothctl power $(bluetoothctl show | grep -q \"Powered: yes\" && echo off || echo on)",
+          "type": "toggle",
+          "update-command": "bash -c 'bluetoothctl show | grep -q \"Powered: yes\" && echo true || echo false'"
+        },
+        {
+          "label": "󰌾",
+          "command": "hyprlock"
+        },
+        {
+          "label": "󰜉",
+          "command": "systemctl reboot"
+        },
+        {
+          "label": "󰐥",
+          "command": "systemctl poweroff"
+        }
+      ]
     },
     "dnd": {
       "text": "Do Not Disturb"

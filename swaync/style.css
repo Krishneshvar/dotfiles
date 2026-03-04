@@ -36,12 +36,38 @@
 .dnd,
 .mpris,
 .volume,
-.backlight {
+.backlight,
+.buttons-grid {
   background: @bg_alt;
   border-radius: 14px;
   padding: 12px;
   margin: 6px 0;
 }
+
+/* =========================
+   Buttons Grid Specific
+   ========================= */
+.buttons-grid button {
+  background: @bg_alt2;
+  color: @fg;
+  margin: 8px;
+  border-radius: 999px;
+  min-width: 54px;
+  min-height: 54px;
+  transition: all 0.2s ease;
+}
+
+.buttons-grid button:hover {
+  background: alpha(@accent, 0.2);
+  color: @accent;
+  box-shadow: 0 0 10px alpha(@accent, 0.1);
+}
+
+.buttons-grid button.active {
+  background: @accent;
+  color: @accent_fg;
+}
+
 
 /* =========================
    Do Not Disturb
