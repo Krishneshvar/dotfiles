@@ -67,9 +67,9 @@
       "actions": [
         {
           "label": "󰒲",
-          "command": "swaync-client --toggle-dnd",
+          "command": "",
           "type": "toggle",
-          "update-command": "bash -c 'swaync-client -D | grep -q true && echo true || echo false'"
+          "update-command": ""
         },
         {
           "label": "󰖩",

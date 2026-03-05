@@ -1,4 +1,4 @@
-@import "/home/krish/.config/matugen/generated/rofi.rasi"
+@import "~/.config/matugen/generated/rofi.rasi"
 
 * {
     background-color: @bg;
@@ -11,4 +11,18 @@ window {
     border-color: @border-col;
     border-radius: 20px;
     padding: 0;
+
+    location: center;
+    anchor: center;
+}
+
+scrollbar {
+    width: 6px;
+    border-radius: 10px;
+    handle-color: @accent;
+    background-color: @bg-alt;
+}
+
+entry {
+    cursor-color: @accent;
 }

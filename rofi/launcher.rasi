@@ -21,57 +21,81 @@ entry {
     text-color: @fg;
     placeholder: "  Search Applications...";
     placeholder-color: @fg-muted;
+
     padding: 14px 20px;
+
     border-radius: 100px;
 }
 
 listview {
     padding: 10px 30px;
+
     spacing: 10px;
+
     lines: 6;
+    dynamic: true;
+
     background-color: transparent;
     fixed-height: false;
 }
 
 element {
     padding: 10px 18px;
-    border-radius: 100px; /* Pill Shape */
+
+    border-radius: 100px;
     background-color: transparent;
+
     text-color: @fg;
 }
 
 element selected.normal {
     background-color: @accent;
-    text-color: @on-accent; 
+    text-color: @on-accent;
+}
+
+element selected.active {
+    background-color: @accent;
+    text-color: @on-accent;
+}
+
+element normal.active {
+    text-color: @accent;
 }
 
 element-icon {
-    size: 32px;
+    size: 28px;
     margin: 0 12px 0 0;
+
+    vertical-align: 0.5;
+
     background-color: transparent;
 }
 
 element-text {
     vertical-align: 0.5;
+
     background-color: transparent;
-    text-color: inherit; /* Inherits @on-accent when selected */
+    text-color: inherit;
 }
 
 mode-switcher {
     margin: 15px 30px 30px 30px;
+
     spacing: 10px;
+
     background-color: transparent;
 }
 
 button {
-    padding: 10px;
+    padding: 8px 14px;
+
     background-color: @bg-alt;
     text-color: @fg-muted;
+
     border-radius: 100px;
-    cursor: pointer;
 }
 
 button selected {
     background-color: @accent;
-    text-color: @on-accent; /* Fixes contrast on bottom tabs */
+    text-color: @on-accent;
 }
