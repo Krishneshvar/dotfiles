@@ -2,31 +2,74 @@
   "positionX": "right",
   "positionY": "top",
   "layer": "overlay",
+
   "control-center-width": 380,
   "control-center-margin-top": 12,
   "control-center-margin-right": 12,
+
   "notification-window-width": 360,
   "notification-icon-size": 48,
+
   "widgets": [
     "title",
-    "buttons-grid",
-    "volume",
-    "backlight#screen",
     "dnd",
-    "notifications"
+    "notifications",
+    "backlight#screen",
+    "volume",
+    "buttons-grid#system",
+    "buttons-grid#toggles"
   ],
+
   "widget-config": {
+
     "title": {
-      "text": "Action Center"
+      "text": "Notification Center"
     },
-    "buttons-grid": {
-      "columns": 3,
+
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+
+    "volume": {
+      "label": "󰓃 "
+    },
+
+    "backlight#screen": {
+      "label": "󰖨 ",
+      "device": "intel_backlight",
+      "min": 1
+    },
+
+    "buttons-grid#system": {
+      "buttons-per-row": 4,
       "actions": [
         {
-          "label": "󰍬",
-          "command": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+          "label": "󰐥",
+          "command": "systemctl poweroff"
+        },
+        {
+          "label": "󰌾",
+          "command": "hyprlock"
+        },
+        {
+          "label": "󰗼",
+          "command": "hyprctl dispatch exit"
+        },
+        {
+          "label": "󰜉",
+          "command": "systemctl reboot"
+        }
+      ]
+    },
+
+    "buttons-grid#toggles": {
+      "buttons-per-row": 4,
+      "actions": [
+        {
+          "label": "󰒲",
+          "command": "swaync-client --toggle-dnd",
           "type": "toggle",
-          "update-command": "bash -c 'wpctl get-mute @DEFAULT_AUDIO_SOURCE@ | grep -q \"MUTED\" && echo true || echo false'"
+          "update-command": "bash -c 'swaync-client -D | grep -q true && echo true || echo false'"
         },
         {
           "label": "󰖩",
@@ -36,38 +79,18 @@
         },
         {
           "label": "󰂯",
-          "command": "bluetoothctl power $(bluetoothctl show | grep -q \"Powered: yes\" && echo off || echo on)",
+          "command": "bash -c 'bluetoothctl power $(bluetoothctl show | grep -q \"Powered: yes\" && echo off || echo on)'",
           "type": "toggle",
           "update-command": "bash -c 'bluetoothctl show | grep -q \"Powered: yes\" && echo true || echo false'"
         },
         {
-          "label": "󰌾",
-          "command": "hyprlock"
-        },
-        {
-          "label": "󰜉",
-          "command": "systemctl reboot"
-        },
-        {
-          "label": "󰐥",
-          "command": "systemctl poweroff"
+          "label": "󰍬",
+          "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+          "type": "toggle",
+          "update-command": "bash -c 'pactl get-source-mute @DEFAULT_SOURCE@ | grep -q \"Mute: yes\" && echo true || echo false'"
         }
       ]
-    },
-    "dnd": {
-      "text": "Do Not Disturb"
-    },
-    "mpris": {
-      "image-size": 64,
-      "blur": false
-    },
-    "volume": {
-      "label": "󰓃 "
-    },
-    "backlight#screen": {
-      "label": "󰖨 ",
-      "device": "intel_backlight",
-      "min": 1
     }
+
   }
 }
