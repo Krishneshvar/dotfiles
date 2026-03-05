@@ -1,0 +1,68 @@
+@import "base.rasi"
+
+window {
+    width: 650px;
+}
+
+mainbox {
+    spacing: 0;
+    background-color: transparent;
+    children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+    padding: 18px 25px 10px 25px;
+    background-color: transparent;
+    children: [ "entry" ];
+}
+
+entry {
+    background-color: @bg-alt;
+    text-color: @fg;
+
+    placeholder: "  Search emojis or characters...";
+    placeholder-color: @fg-muted;
+
+    padding: 12px 18px;
+    border-radius: 100px;
+}
+
+listview {
+    columns: 5;
+    lines: 4;
+
+    spacing: 20px;
+    padding: 20px 25px 25px 25px;
+
+    scrollbar: false;
+    dynamic: true;
+}
+
+element {
+    padding: 26px;
+    border-radius: 14px;
+
+    background-color: transparent;
+}
+
+element-icon {
+    enabled: false;
+}
+
+element-text {
+    font: "Noto Color Emoji 25";
+
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+
+    background-color: transparent;
+}
+
+element selected.normal {
+    background-color: @accent;
+    border-radius: 14px;
+}
+
+element selected.normal element-text {
+    text-color: @bg;
+}
