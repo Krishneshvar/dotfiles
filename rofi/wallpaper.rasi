@@ -28,23 +28,23 @@ entry {
 }
 
 listview {
-    columns: 4;
-    lines: 1;
+    layout: horizontal;
 
     spacing: 22px;
     padding: 15px 35px 25px 35px;
 
     scrollbar: false;
-    dynamic: false;
+    dynamic: true;
 }
 
 element {
     orientation: vertical;
+    width: 210px;
 
     padding: 10px;
     border-radius: 16px;
 
-    background-color: transparent;
+    background-color: rgba(255,255,255,0.02);
 }
 
 element-icon {
