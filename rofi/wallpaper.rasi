@@ -1,42 +1,76 @@
 @import "base.rasi"
 
 window {
-    width: 1100px;
-    border-radius: 20px;
+    width: 1050px;
 }
 
 mainbox {
-    children: [ "listview" ];
+    spacing: 0;
     background-color: transparent;
+    children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+    padding: 18px 30px 12px 30px;
+    background-color: transparent;
+    children: [ "entry" ];
+}
+
+entry {
+    background-color: @bg-alt;
+    text-color: @fg;
+
+    placeholder: "  Search wallpapers or themes...";
+    placeholder-color: @fg-muted;
+
+    padding: 12px 18px;
+    border-radius: 100px;
 }
 
 listview {
-    layout: horizontal;
-    lines: 2;
     columns: 4;
-    spacing: 25px;
-    padding: 30px;
+    lines: 1;
+
+    spacing: 22px;
+    padding: 15px 35px 25px 35px;
+
     scrollbar: false;
+    dynamic: false;
 }
 
 element {
     orientation: vertical;
-    padding: 12px;
+
+    padding: 10px;
     border-radius: 16px;
+
     background-color: transparent;
 }
 
 element-icon {
-    size: 220px;
-    border-radius: 14px;
+    size: 190px;
+    border-radius: 12px;
+
+    background-color: @bg-alt;
 }
 
 element-text {
+    margin: 10px 0 0 0;
+    padding: 4px 8px;
+
+    border-radius: 8px;
+
     horizontal-align: 0.5;
-    margin: 8px 0 0 0;
+
+    text-color: @fg-muted;
+    background-color: transparent;
 }
 
 element selected.normal {
     background-color: @accent;
-    text-color: @on-accent;
+    border-radius: 16px;
+}
+
+element-text selected.normal {
+    text-color: @bg;
 }
