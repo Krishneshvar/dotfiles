@@ -13,7 +13,7 @@ class CustomCalendar(Gtk.Box):
     def __init__(self):
         super().__init__()
         self.set_orientation(Gtk.Orientation.VERTICAL)
-        self.set_spacing(15)
+        self.set_spacing(16)
         
         self.today = datetime.now()
         self.view_month = self.today.month
@@ -34,6 +34,7 @@ class CustomCalendar(Gtk.Box):
         self.month_label = Gtk.Label()
         self.month_label.set_name("month-label")
         self.month_label.set_hexpand(True)
+        self.month_label.set_halign(Gtk.Align.CENTER)
         
         header.pack_start(self.prev_btn, False, False, 0)
         header.pack_start(self.month_label, True, True, 0)
@@ -44,13 +45,16 @@ class CustomCalendar(Gtk.Box):
         # Year Navigation (Subtle)
         year_box = Gtk.Box()
         year_box.set_orientation(Gtk.Orientation.HORIZONTAL)
-        year_box.set_spacing(5)
+        year_box.set_spacing(8)
         year_box.set_halign(Gtk.Align.CENTER)
         
         self.prev_year = Gtk.Button.new_from_icon_name("pan-start-symbolic", Gtk.IconSize.MENU)
         self.next_year = Gtk.Button.new_from_icon_name("pan-end-symbolic", Gtk.IconSize.MENU)
         self.prev_year.connect("clicked", lambda x: self.change_year(-1))
         self.next_year.connect("clicked", lambda x: self.change_year(1))
+        
+        self.prev_year.get_style_context().add_class("year-btn")
+        self.next_year.get_style_context().add_class("year-btn")
         
         self.year_label = Gtk.Label()
         self.year_label.set_name("year-label")
@@ -63,9 +67,12 @@ class CustomCalendar(Gtk.Box):
 
         # The Grid
         self.grid = Gtk.Grid()
-        self.grid.set_column_spacing(10)
-        self.grid.set_row_spacing(10)
+        self.grid.set_column_spacing(6)
+        self.grid.set_row_spacing(6)
         self.grid.set_halign(Gtk.Align.CENTER)
+        # Make the grid homogeneous so the numbers perfectly align like a matrix
+        self.grid.set_column_homogeneous(True)
+        self.grid.set_row_homogeneous(True)
         self.pack_start(self.grid, True, True, 0)
         
         self.update_calendar()
@@ -85,55 +92,53 @@ class CustomCalendar(Gtk.Box):
         self.update_calendar()
 
     def update_calendar(self):
-        # Clear specific grid children
         for child in self.grid.get_children():
             self.grid.remove(child)
             
         self.month_label.set_text(calendar.month_name[self.view_month])
         self.year_label.set_text(str(self.view_year))
         
-        # Weekday headers
-        days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        # Weekday headers 
+        days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
         for i, day in enumerate(days):
             lbl = Gtk.Label(label=day)
             lbl.get_style_context().add_class("day-header")
+            lbl.set_halign(Gtk.Align.CENTER)
+            lbl.set_valign(Gtk.Align.CENTER)
             self.grid.attach(lbl, i, 0, 1, 1)
             
-        # Get calendar data
         cal = calendar.Calendar(calendar.SUNDAY)
         month_days = cal.monthdays2calendar(self.view_year, self.view_month)
         
-        # Calculate context for other months
         prev_month = self.view_month - 1 or 12
         prev_year = self.view_year if self.view_month > 1 else self.view_year - 1
         prev_month_len = calendar.monthrange(prev_year, prev_month)[1]
         
-        r = 1
-        # We need to fill the grid with exactly 6 weeks for consistency
-        all_days = cal.monthdays2calendar(self.view_year, self.view_month)
-        
-        # First week might have leading 0s
-        first_week = all_days[0]
+        # First week padding
+        first_week = month_days[0]
         padding = 0
         for i, (day, _) in enumerate(first_week):
             if day == 0: padding += 1
             else: break
             
-        # Draw padding from previous month
         for i in range(padding):
             day_val = prev_month_len - padding + i + 1
             lbl = Gtk.Label(label=str(day_val))
             lbl.get_style_context().add_class("other-month")
+            lbl.set_halign(Gtk.Align.CENTER)
+            lbl.set_valign(Gtk.Align.CENTER)
             self.grid.attach(lbl, i, 1, 1, 1)
 
-        # Draw current month and remaining padding
+        # Current month
         row = 1
-        for week in all_days:
+        for week in month_days:
             for i, (day, _) in enumerate(week):
-                if day == 0: continue
+                if day == 0: continue # This skips drawing days outside the current month
                 
                 lbl = Gtk.Label(label=str(day))
                 ctx = lbl.get_style_context()
+                lbl.set_halign(Gtk.Align.CENTER)
+                lbl.set_valign(Gtk.Align.CENTER)
                 
                 if (day == self.today.day and 
                     self.view_month == self.today.month and 
@@ -143,23 +148,6 @@ class CustomCalendar(Gtk.Box):
                     ctx.add_class("current-month")
                 
                 self.grid.attach(lbl, i, row, 1, 1)
-            row += 1
-            
-        # Fill training padding for next month
-        last_week = all_days[-1]
-        next_padding = 0
-        filling = False
-        next_day = 1
-        
-        # If we have less than 6 rows, keep adding
-        while row <= 6:
-            for i in range(7):
-                # Check if this cell is already occupied
-                if self.grid.get_child_at(i, row) is None:
-                    lbl = Gtk.Label(label=str(next_day))
-                    lbl.get_style_context().add_class("other-month")
-                    self.grid.attach(lbl, i, row, 1, 1)
-                    next_day += 1
             row += 1
 
         self.show_all()
@@ -171,8 +159,17 @@ class CalendarWindow(Gtk.Window):
         
         GtkLayerShell.init_for_window(self)
         GtkLayerShell.set_layer(self, GtkLayerShell.Layer.TOP)
-        GtkLayerShell.set_margin(self, GtkLayerShell.Edge.TOP, 4)
+        
+        # Position: Top-Left anchoring
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.TOP, True)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.LEFT, True)
+        
+        # Position Margins: 4px from Waybar, 10px from the left screen edge
+        GtkLayerShell.set_margin(self, GtkLayerShell.Edge.TOP, 4)
+        GtkLayerShell.set_margin(self, GtkLayerShell.Edge.LEFT, 10)
+        
+        # Enable on-demand keyboard focus to capture clicks outside the window
+        GtkLayerShell.set_keyboard_mode(self, GtkLayerShell.KeyboardMode.ON_DEMAND)
         
         self.setup_css()
         
@@ -184,10 +181,13 @@ class CalendarWindow(Gtk.Window):
         self.cal = CustomCalendar()
         card.pack_start(self.cal, True, True, 0)
         
-        self.connect("focus-out-event", lambda w, e: self.close_and_exit())
+        # Bind the focus-out event to the close function
+        self.connect("focus-out-event", self.on_focus_out)
         self.connect("key-press-event", self.on_key_press)
         
         self.show_all()
+        # Force the window to present itself and grab focus immediately
+        self.present()
 
     def setup_css(self):
         css_provider = Gtk.CssProvider()
@@ -202,71 +202,93 @@ class CalendarWindow(Gtk.Window):
         custom_css = f"""
         {colors_css}
         
-        window {{ background: transparent; }}
+        window {{
+            background: transparent;
+        }}
         
         #calendar-card {{
-            background-color: @bg_alt;
+            background-color: @bg;
             border: 1px solid @outline;
             border-radius: 16px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }}
         
         label {{
-            font-family: "JetBrainsMono Nerd Font", monospace;
-            font-weight: bold;
+            font-family: "JetBrainsMono Nerd Font", Roboto, sans-serif;
         }}
         
         #month-label {{
             font-size: 16px;
-            color: @accent;
+            font-weight: 800;
+            color: @fg;
         }}
         
         #year-label {{
             font-size: 13px;
-            color: alpha(@accent, 0.6);
+            font-weight: 600;
+            color: @fg_muted;
         }}
         
         .day-header {{
             font-size: 12px;
+            font-weight: 700;
             color: @accent;
-            padding: 5px;
-            margin-bottom: 5px;
+            padding-bottom: 8px;
+        }}
+        
+        /* Fixed sizing for the grid cells ensures perfectly aligned numbers */
+        .current-month, .other-month, .today {{
+            min-width: 32px;
+            min-height: 32px;
+            padding: 0;
         }}
         
         .current-month {{
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 500;
             color: @fg;
-            padding: 8px;
-            min-width: 35px;
         }}
         
         .other-month {{
-            font-size: 14px;
-            color: alpha(@fg_muted, 0.25);
-            padding: 8px;
-            min-width: 35px;
+            font-size: 13px;
+            font-weight: 500;
+            color: alpha(@fg_muted, 0.4);
         }}
         
         .today {{
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 700;
             color: @accent_fg;
             background-color: @accent;
-            border-radius: 8px;
-            padding: 8px;
-            min-width: 35px;
+            border-radius: 99px; /* Maps to a perfect circle because of fixed sizing */
         }}
         
         button {{
-            color: @accent;
+            color: @fg;
             background: transparent;
             border: none;
-            border-radius: 50%;
-            padding: 5px;
+            border-radius: 99px;
+            padding: 6px;
+            min-width: 28px;
+            min-height: 28px;
+            transition: all 0.2s ease;
         }}
         
         button:hover {{
-            background-color: alpha(@accent, 0.15);
+            background-color: @bg_alt;
+            color: @accent;
+        }}
+        
+        button.year-btn {{
+            padding: 4px;
+            min-width: 24px;
+            min-height: 24px;
+            color: @fg_muted;
+        }}
+        
+        button.year-btn:hover {{
+            color: @fg;
         }}
         """
         
@@ -276,6 +298,9 @@ class CalendarWindow(Gtk.Window):
             css_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
+
+    def on_focus_out(self, widget, event):
+        self.close_and_exit()
 
     def on_key_press(self, widget, event):
         if event.keyval == Gdk.KEY_Escape:

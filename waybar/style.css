@@ -1,48 +1,81 @@
+/*
+   Refer https://github.com/Alexays/Waybar/wiki/Styling
+   for official styling docs
+*/
 @import url("file:///home/krish/.config/matugen/generated/colors.css");
 
-/* ========== Global ========== */
+/* ========== State Variables ========== */
+@define-color state_ok lightgreen;
+@define-color state_warn lightsalmon;
+@define-color state_crit lightcoral;
+@define-color state_info lightskyblue;
+@define-color state_perf gold;
+
+/* ========== Global & Stability Fixes ========== */
 * {
     font-family: "JetBrainsMono Nerd Font", Roboto, sans-serif;
-    font-size: 13px;
+    font-size: 14px;
+    padding: 0 4;
     border: none;
     border-radius: 0;
     min-height: 0;
+    box-shadow: none;
 }
 
 window#waybar {
-    background-color: transparent;
+    background-color: @bg;
+    color: @fg;
+    transition: background-color 0.2s ease;
 }
 
-/* ========== Shared module base ========== */
+/* ========== Shared Module Base ========== */
 #workspaces,
 #clock,
 #bluetooth,
 #pulseaudio,
 #network,
-#temperature,
 #battery,
 #power-profiles-daemon,
-#custom-notifications {
+#custom-notifications,
+#custom-logo,
+#tray {
     background-color: @bg_alt;
     color: @fg;
-    padding: 0 12px;
-    margin: 4px 4px;
-    border-radius: 14px;
-    border: 1px solid @outline;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    padding: 2px 14px;
+    margin: 4px 0px;
+    border-radius: 99px;
+    transition: all 0.2s ease;
+}
+
+/* Shared hover state for interactive modules */
+#clock:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#custom-notifications:hover,
+#tray:hover {
+    background-color: @bg_alt2;
+    color: @accent;
 }
 
 /* ========== Workspaces ========== */
 #workspaces {
-    padding: 0 6px;
+    padding: 0 4px;
 }
 
 #workspaces button {
     background: transparent;
     color: @fg_muted;
-    padding: 0 8px;
-    margin: 4px 2px;
-    border-radius: 10px;
+    padding: 0px 5px;
+    margin: 2px 2px;
+    border-radius: 99px;
+    transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+    background-color: @bg_alt2;
+    color: @fg;
 }
 
 #workspaces button.active {
@@ -51,68 +84,88 @@ window#waybar {
 }
 
 #workspaces button.urgent {
-    background-color: @error;
-    color: @error_fg;
+    background-color: @state_crit;
+    color: @bg;
 }
 
-/* ========== Clock (center anchor) ========== */
+/* ========== Clock ========== */
 #clock {
-    background-color: @bg_alt2;
+    background-color: @bg_alt;
     font-weight: 600;
 }
 
+/* ========== Tooltips ========== */
 tooltip {
     background-color: @bg;
     border: 1px solid @outline;
     border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 tooltip label {
     color: @fg;
+    padding: 8px 12px;
+}
+
+/* ========== Center Arch Logo ========== */
+#custom-logo {
+    background-color: @accent;
+    color: @accent_fg;
+    padding: 2px 14px 2px 10px;
+}
+
+/* ========== Hardware & Connectivity States ========== */
+#bluetooth { color: @accent_alt; }
+#bluetooth.disabled, 
+#bluetooth.off { color: @state_crit; }
+#bluetooth.connected { color: @state_ok; }
+
+#network { color: @accent; }
+#network.disconnected { color: @state_crit; }
+
+#pulseaudio.muted { color: @state_crit; }
+
+#battery.warning { color: @state_warn; }
+#battery.critical { color: @state_crit; }
+#battery.charging,
+#battery.plugged { color: @state_ok; }
+
+#power-profiles-daemon.power-saver { color: @state_ok; }
+#power-profiles-daemon.balanced { color: @state_info; }
+#power-profiles-daemon.performance { color: @state_perf; }
+
+/* ========== Tray Menus ========== */
+menu {
+    background-color: @bg;
+    border: 1px solid @outline;
+    border-radius: 16px;
     padding: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Calendar styling for the built-in tooltip */
-#clock tooltip {
-    padding: 15px;
+menuitem {
+    color: @fg;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
-#clock tooltip label {
-    font-family: "JetBrainsMono Nerd Font", monospace;
-    font-size: 14px;
+menuitem:hover {
+    background-color: @accent;
+    color: @accent_fg;
 }
 
-
-/* ========== Bluetooth ========== */
-#bluetooth {
-    color: @accent_alt;
+menu separator {
+    background-color: @outline;
+    margin: 4px 0;
 }
 
-/* ========== Network ========== */
-#network {
-    color: @accent;
+menuitem check,
+menuitem radio {
+    margin-right: 8px;
 }
 
-/* ========== Audio ========== */
-#pulseaudio.muted {
-    color: @fg_muted;
-}
-
-/* ========== Temperature ========== */
-#temperature.critical {
-    color: @error;
-}
-
-/* ========== Battery ========== */
-#battery.warning {
-    color: @warning;
-}
-
-#battery.critical {
-    color: @error;
-}
-
-/* ========== Notifications ========== */
-#custom-notifications {
-    padding: 0 10px;
+/* ========== Tray ========== */
+#tray {
+    padding: 2px 10px;
 }
