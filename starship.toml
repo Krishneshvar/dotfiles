@@ -1,3 +1,4 @@
+# ~/.config/
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Main Left Prompt

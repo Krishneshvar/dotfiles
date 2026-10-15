@@ -2,21 +2,17 @@
 
 local mainMod = "SUPER"
 
-local terminal          = "kitty"
-local fileManager       = "nautilus"
-local menu              = "rofi -show drun -theme ~/.config/rofi/launcher.rasi"
-local swaync            = "swaync-client --skip-wait -t"
-local cliphist          = "cliphist list | rofi -dmenu -theme ~/.config/rofi/clipboard.rasi | cliphist decode | wl-copy"
-local rofimoji          = "rofimoji --selector rofi --selector-args '-theme ~/.config/rofi/emoji.rasi' --clipboarder wl-copy --typer wtype --hidden-descriptions"
-local wall_script       = "~/.config/wallengine/themectl choose-wall"
-local theme_script      = "~/.config/wallengine/themectl choose-theme"
-local rand_theme        = "~/.config/wallengine/themectl random"
-local hyprshot_w        = "hyprshot -m window --freeze"
-local hyprshot_r        = "hyprshot -m region --freeze"
-local noctalia_ipc      = "qs -c noctalia-shell ipc call"
-local noctalia_launcher = "qs -c noctalia-shell ipc call launcher toggle"
-local noctalia_controlcenter = "qs -c noctalia-shell ipc call controlCenter toggle"
-
+local terminal     = "kitty"
+local fileManager  = "nautilus"
+local menu         = "rofi -show drun -theme ~/.config/rofi/launcher.rasi"
+local swaync       = "swaync-client --skip-wait -t"
+local cliphist     = "cliphist list | rofi -dmenu -theme ~/.config/rofi/clipboard.rasi | cliphist decode | wl-copy"
+local rofimoji     = "rofimoji --selector rofi --selector-args '-theme ~/.config/rofi/emoji.rasi' --clipboarder wl-copy --typer wtype --hidden-descriptions"
+local wall_script  = "~/.config/wallengine/themectl choose-wall"
+local theme_script = "~/.config/wallengine/themectl choose-theme"
+local rand_theme   = "~/.config/wallengine/themectl random"
+local hyprshot_w   = "hyprshot -m window --freeze"
+local hyprshot_r   = "hyprshot -m region --freeze"
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
@@ -32,16 +28,12 @@ hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 -- Custom binds
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(swaync))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(cliphist))
--- hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(rofimoji))
+hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(rofimoji))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(wall_script))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(theme_script))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(rand_theme))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(hyprshot_r))
 hl.bind("PRINT", hl.dsp.exec_cmd(hyprshot_w))
-
--- Noctalia binds
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(noctalia_launcher))
-hl.bind(mainMod .. " + S", hl.dsp.exec_cmd(noctalia_controlcenter))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
@@ -82,13 +74,6 @@ hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_S
 hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --mic mute"),       { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+ && swayosd-client --brightness raise"),              { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%- && swayosd-client --brightness lower"),              { locked = true, repeating = true })
-
--- Noctalia laptop multimedia keys
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call volume increase"),     { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call volume decrease"),     { locked = true, repeating = true })
-hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("qs -c noctalia-shell ipc call volume muteOutput"),   { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("qs -c noctalia-shell ipc call brightness increase"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("qs -c noctalia-shell ipc call brightness decrease"), { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })

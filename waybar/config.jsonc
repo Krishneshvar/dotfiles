@@ -43,7 +43,7 @@
     "custom/logo": {
         "format": "  ",
         "tooltip": false,
-        "on-click": "rofi -show drun"
+        "on-click": "rofi -show drun -theme ~/.config/rofi/launcher.rasi"
     },
     // Right modules
     "network": {
@@ -59,6 +59,8 @@
     "bluetooth": {
         "format": "",
         "format-connected": "",
+        "format-disconnected": "!",
+        "format-disabled": "!",
         "format-connected-battery": " {device_battery_percentage}%",
         "tooltip-format": "{controller_alias}\t{num_connections} connected",
         "tooltip-format-connected": "{controller_alias}\t{num_connections} connected\n\n{device_enumerate}",
