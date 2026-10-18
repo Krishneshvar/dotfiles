@@ -113,7 +113,7 @@ hl.config({
     scrolling = {
         fullscreen_on_one_column = true,
         column_width             = 0.9,
-        direction                = right, -- New windows appear to the right
+        direction                = "right", -- New windows appear to the right
         focus_fit_method         = 0,     -- 0 = center, 1 = fit
         follow_focus             = true,
         follow_min_visible       = 0.4,
