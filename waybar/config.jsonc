@@ -30,8 +30,7 @@
     // Module definitions
     // Left module
     "hyprland/workspaces": {
-        "format": "{name}",
-        "on-click": "activate"
+        "format": "{name}"
     },
     "clock": {
         "format": " {0:%a, %b %d}    {0:%H:%M}",

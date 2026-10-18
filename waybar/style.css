@@ -15,7 +15,7 @@
 * {
     font-family: "JetBrainsMono Nerd Font", Roboto, sans-serif;
     font-size: 14px;
-    padding: 0 4;
+    padding: 0 4px;
     border: none;
     border-radius: 0;
     min-height: 0;
@@ -39,7 +39,7 @@ window#waybar {
 #custom-notifications,
 #custom-logo,
 #tray {
-    background-color: @bg_alt;
+    background-color: @bg_alt2;
     color: @fg;
     padding: 2px 14px;
     margin: 4px 0px;
@@ -53,9 +53,10 @@ window#waybar {
 #pulseaudio:hover,
 #network:hover,
 #battery:hover,
+#power-profiles-daemon:hover,
 #custom-notifications:hover,
 #tray:hover {
-    background-color: @bg_alt2;
+    background-color: @bg_alt;
     color: @accent;
 }
 
@@ -74,7 +75,7 @@ window#waybar {
 }
 
 #workspaces button:hover {
-    background-color: @bg_alt2;
+    background-color: @bg_alt;
     color: @fg;
 }
 
@@ -84,14 +85,8 @@ window#waybar {
 }
 
 #workspaces button.urgent {
-    background-color: @state_crit;
+    background-color: lightcoral;
     color: @bg;
-}
-
-/* ========== Clock ========== */
-#clock {
-    background-color: @bg_alt;
-    font-weight: 600;
 }
 
 /* ========== Tooltips ========== */
