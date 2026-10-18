@@ -33,7 +33,7 @@ apply_wall() {
             ;;
     esac
 
-    swww img "$WALL" \
+    awww img "$WALL" \
         --transition-type grow \
         --transition-duration 1 \
         --transition-fps "$FPS"
