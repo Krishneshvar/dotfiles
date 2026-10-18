@@ -25,7 +25,8 @@
         "pulseaudio",
         "battery",
         "power-profiles-daemon",
-        "custom/notifications"
+        "custom/notifications",
+        "custom/power"
     ],
     // Module definitions
     // Left module
@@ -53,7 +54,7 @@
         "tooltip-format-wifi": "{essid} ({signaldBm}dBm)",
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
-        "on-click": "nm-connection-editor"
+        "on-click": "$HOME/.config/waybar/scripts/rofi_wifi.sh"
     },
     "bluetooth": {
         "format": "",
@@ -127,5 +128,10 @@
     "tray": {
         "icon-size": 16,
         "spacing": 10
+    },
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "wlogout"
     }
 }

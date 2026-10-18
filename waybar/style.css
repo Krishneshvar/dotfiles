@@ -37,6 +37,7 @@ window#waybar {
 #battery,
 #power-profiles-daemon,
 #custom-notifications,
+#custom-power,
 #custom-logo,
 #tray {
     background-color: @bg_alt2;
@@ -107,6 +108,22 @@ tooltip label {
     background-color: @accent;
     color: @accent_fg;
     padding: 2px 14px 2px 10px;
+}
+
+/* ========== Notification Button ========== */
+#custom-notifications {
+    padding: 2px 14px 2px 12px;
+}
+
+/* ========== Power Button ========== */
+#custom-power {
+    color: @state_crit;
+    padding: 2px 14px 2px 10px;
+}
+
+#custom-power:hover {
+    background-color: @state_crit;
+    color: @bg;
 }
 
 /* ========== Hardware & Connectivity States ========== */
