@@ -3,7 +3,6 @@
 
 ---- IMPORTS ----
 require("modules.monitors")
-require("modules.programs")
 require("modules.autostart")
 require("modules.env")
 require("modules.permissions")
