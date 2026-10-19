@@ -13,7 +13,8 @@
     // Modules positioning and declaration
     "modules-left": [
         "clock",
-        "hyprland/workspaces"
+        "hyprland/workspaces",
+        "mpris"
     ],
     "modules-center": [
         "custom/logo"
@@ -29,9 +30,41 @@
         "custom/power"
     ],
     // Module definitions
-    // Left module
+    // Left modules
     "hyprland/workspaces": {
         "format": "{name}"
+    },
+    "mpris": {
+        "format": "{player_icon} {dynamic}",
+        "format-paused": "{player_icon} <i>{dynamic}</i>",
+        "format-stopped": "",
+        "player-icons": {
+            "default": " ",
+            "spotify": " ",
+            "firefox": "󰈹 ",
+            "chromium": " ",
+            "chrome": " ",
+            "brave": "󰈹 ",
+            "vlc": "󰕼 ",
+            "mpv": "󰐌 "
+        },
+        "status-icons": {
+            "playing": "▶ ",
+            "paused": "⏸ ",
+            "stopped": ""
+        },
+        "dynamic-order": ["title", "artist"],
+        "dynamic-importance-order": ["title", "artist"],
+        "dynamic-len": 32,
+        "max-length": 35,
+        "ellipsis": "…",
+        "tooltip-format": "{player} ({status})\n{dynamic}\n{album}",
+        "tooltip-format-stopped": "No media playing",
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-click-middle": "playerctl previous",
+        "on-scroll-up": "playerctl volume 0.05+",
+        "on-scroll-down": "playerctl volume 0.05-"
     },
     "clock": {
         "format": " {0:%a, %b %d}    {0:%H:%M}",

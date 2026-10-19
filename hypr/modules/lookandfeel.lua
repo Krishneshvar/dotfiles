@@ -4,7 +4,7 @@
 hl.config({
     general = {
         gaps_in  = 1,
-        gaps_out = 1,
+        gaps_out = 5,
         border_size = 2,
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = true,
@@ -20,8 +20,8 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 0,
-        rounding_power = 0,
+        rounding       = 5,
+        rounding_power = 5,
 
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,

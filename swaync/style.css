@@ -381,12 +381,35 @@ scrollbar slider {
     box-shadow: none;
 }
 
+.notification .close-button label,
+.notification .close-button image,
+.close-button label,
+.close-button image {
+    color: @fg;
+}
+
 .notification .close-button:hover,
 .notification .close-button:active,
-.close-button:hover {
+.close-button:hover,
+.close-button:active {
     background: @accent;
     color: @bg;
     border-color: @accent;
+}
+
+.notification .close-button:hover *,
+.notification .close-button:hover label,
+.notification .close-button:hover image,
+.notification .close-button:active *,
+.notification .close-button:active label,
+.notification .close-button:active image,
+.close-button:hover *,
+.close-button:hover label,
+.close-button:hover image,
+.close-button:active *,
+.close-button:active label,
+.close-button:active image {
+    color: @bg;
 }
 
 /* Notification action buttons */
@@ -401,12 +424,60 @@ scrollbar slider {
     box-shadow: none;
 }
 
+.notification .notification-action label,
+.notification .notification-action image,
+.notification-alt-actions .notification-action label,
+.notification-alt-actions .notification-action image {
+    color: @fg;
+}
+
 .notification .notification-action:hover,
 .notification .notification-action:active,
-.notification-alt-actions .notification-action:hover {
+.notification-alt-actions .notification-action:hover,
+.notification-alt-actions .notification-action:active {
     background: @accent;
     color: @bg;
     border-color: @accent;
+}
+
+.notification .notification-action:hover *,
+.notification .notification-action:hover label,
+.notification .notification-action:hover image,
+.notification .notification-action:active *,
+.notification .notification-action:active label,
+.notification .notification-action:active image,
+.notification-alt-actions .notification-action:hover *,
+.notification-alt-actions .notification-action:hover label,
+.notification-alt-actions .notification-action:hover image,
+.notification-alt-actions .notification-action:active *,
+.notification-alt-actions .notification-action:active label,
+.notification-alt-actions .notification-action:active image {
+    color: @bg;
+}
+
+.notification-group-close-button,
+.notification-group-close-all-button {
+    background: @bg;
+    color: @fg;
+    border: 1px solid @outline;
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+.notification-group-close-button:hover,
+.notification-group-close-button:active,
+.notification-group-close-all-button:hover,
+.notification-group-close-all-button:active {
+    background: @accent;
+    color: @bg;
+    border-color: @accent;
+}
+
+.notification-group-close-button:hover *,
+.notification-group-close-button:active *,
+.notification-group-close-all-button:hover *,
+.notification-group-close-all-button:active * {
+    color: @bg;
 }
 
 .notification-alt-actions {

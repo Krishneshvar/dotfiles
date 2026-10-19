@@ -30,6 +30,7 @@ window#waybar {
 
 /* ========== Shared Module Base ========== */
 #workspaces,
+#mpris,
 #clock,
 #bluetooth,
 #pulseaudio,
@@ -50,6 +51,7 @@ window#waybar {
 
 /* Shared hover state for interactive modules */
 #clock:hover,
+#mpris:hover,
 #bluetooth:hover,
 #pulseaudio:hover,
 #network:hover,
@@ -69,7 +71,7 @@ window#waybar {
 #workspaces button {
     background: transparent;
     color: @fg_muted;
-    padding: 0px 5px;
+    padding: 0px 2px;
     margin: 2px 2px;
     border-radius: 99px;
     transition: all 0.2s ease;
@@ -136,6 +138,9 @@ tooltip label {
 #network.disconnected { color: @state_crit; }
 
 #pulseaudio.muted { color: @state_crit; }
+
+#mpris { color: @fg; }
+#mpris.paused { color: @fg_muted; }
 
 #battery.warning { color: @state_warn; }
 #battery.critical { color: @state_crit; }
