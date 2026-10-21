@@ -2,29 +2,27 @@
 
 # Main Left Prompt
 format = """
-[](fg:{{colors.primary.default.hex}})\
+[](fg:{{colors.surface_container.default.hex}})\
 $username\
-[](fg:{{colors.primary.default.hex}} bg:{{colors.tertiary.default.hex}})\
+[](fg:{{colors.surface_container.default.hex}} bg:{{colors.primary.default.hex}})\
 $directory\
-[](fg:{{colors.tertiary.default.hex}} bg:{{colors.surface_variant.default.hex}})\
+[](fg:{{colors.primary.default.hex}} bg:{{colors.surface_variant.default.hex}})\
 $git_branch\
 $git_status\
 [](fg:{{colors.surface_variant.default.hex}} bg:{{colors.secondary.default.hex}})\
-$c$rust$golang$nodejs$java$python\
+$c$rust$golang$nodejs$java$kotlin$python\
 [](fg:{{colors.secondary.default.hex}})\
+$cmd_duration\
 $line_break$character"""
-
-# Right Prompt: Command Duration
-right_format = """$cmd_duration"""
 
 [username]
 show_always = true
-style_user = "bg:{{colors.primary.default.hex}} fg:{{colors.on_primary.default.hex}}"
-style_root = "bg:{{colors.error.default.hex}} fg:{{colors.on_error.default.hex}}"
+style_user = "bg:{{colors.surface_container.default.hex}} fg:{{colors.primary.default.hex}}"
+style_root = "bg:{{colors.surface_container.default.hex}} fg:{{colors.error.default.hex}}"
 format = '[ $user ]($style)'
 
 [directory]
-style = "bg:{{colors.tertiary.default.hex}} fg:{{colors.on_tertiary.default.hex}}"
+style = "bg:{{colors.primary.default.hex}} fg:{{colors.background.default.hex}}"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -37,12 +35,6 @@ format = '[ $symbol$branch ]($style)'
 [git_status]
 style = "bg:{{colors.surface_variant.default.hex}} fg:{{colors.error.default.hex}}"
 format = '[$all_status$ahead_behind]($style)'
-
-[cmd_duration]
-min_time = 1
-show_milliseconds = false
-style = "fg:{{colors.on_secondary_container.default.hex}} bg:{{colors.secondary_container.default.hex}}"
-format = '[](fg:{{colors.secondary_container.default.hex}})[ 󱎫 $duration ]($style)[](fg:{{colors.secondary_container.default.hex}})'
 
 # Language Modules
 [nodejs]
@@ -74,6 +66,17 @@ format = '[$symbol]($style)'
 symbol = "  java"
 style = "bg:{{colors.secondary.default.hex}} fg:{{colors.on_secondary.default.hex}}"
 format = '[$symbol]($style)'
+
+[kotlin]
+symbol = "  kotlin"
+style = "bg:{{colors.secondary.default.hex}} fg:{{colors.on_secondary.default.hex}}"
+format = '[$symbol]($style)'
+
+[cmd_duration]
+min_time = 1
+show_milliseconds = false
+style = "bg:#000000 fg:{{colors.primary.default.hex}}"
+format = '[](fg:#000000)[ 󱎫 $duration ]($style)[](fg:#000000)'
 
 [character]
 success_symbol = '[ ](bold fg:{{colors.primary.default.hex}})'
