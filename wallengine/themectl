@@ -8,7 +8,8 @@ mkdir -p "$STATE_DIR"
 
 reload_ui() {
     pgrep -x waybar >/dev/null 2>&1 && killall -SIGUSR2 waybar
-    pgrep -x swaync >/dev/null 2>&1 && killall -SIGUSR2 swaync
+    command -v swaync-client >/dev/null 2>&1 && swaync-client -R -rs
+    pgrep -x kitty >/dev/null 2>&1 && killall -SIGUSR1 kitty
     pgrep -x swayosd-server >/dev/null 2>&1 && {
         killall swayosd-server
         swayosd-server >/dev/null 2>&1 &
@@ -39,7 +40,7 @@ apply_wall() {
         --transition-fps "$FPS"
 
     if command -v matugen >/dev/null 2>&1; then
-        matugen image "$WALL"
+        matugen image "$WALL" --source-color-index 0
     fi
 
     reload_ui

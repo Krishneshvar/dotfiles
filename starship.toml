@@ -40,7 +40,7 @@ style = "bg:#41484d fg:#ffb4ab"
 format = '[$all_status$ahead_behind]($style)'
 
 [cmd_duration]
-min_time = 0
+min_time = 1
 show_milliseconds = false
 style = "fg:#d2e5f4 bg:#374955"
 format = '[](fg:#374955)[ 󱎫 $duration ]($style)[](fg:#374955)'

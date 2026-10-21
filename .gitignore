@@ -1,3 +1,2 @@
 *.so
 */__pycache__/
-nvim/lazy-lock.json

@@ -1,6 +1,12 @@
 ---- LOOK AND FEEL ----
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 
+local theme_colors = nil
+local colors_chunk = loadfile(os.getenv("HOME") .. "/.config/matugen/generated/hyprland.lua")
+if colors_chunk then
+    theme_colors = colors_chunk()
+end
+
 hl.config({
     general = {
         gaps_in  = 1,
@@ -11,10 +17,10 @@ hl.config({
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
         allow_tearing = false,
 
-        -- col = {
-        --     active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
-        --     inactive_border = "rgba(595959aa)",
-        -- },
+        col = {
+            active_border   = theme_colors and ("rgb(" .. theme_colors.primary:gsub("#", "") .. ")") or "rgba(33ccffee)",
+            inactive_border = theme_colors and ("rgba(" .. theme_colors.outline:gsub("#", "") .. "aa)") or "rgba(595959aa)",
+        },
 
         layout = "scrolling",
     },

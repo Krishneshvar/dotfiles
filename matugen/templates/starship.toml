@@ -39,7 +39,7 @@ style = "bg:{{colors.surface_variant.default.hex}} fg:{{colors.error.default.hex
 format = '[$all_status$ahead_behind]($style)'
 
 [cmd_duration]
-min_time = 0
+min_time = 1
 show_milliseconds = false
 style = "fg:{{colors.on_secondary_container.default.hex}} bg:{{colors.secondary_container.default.hex}}"
 format = '[](fg:{{colors.secondary_container.default.hex}})[ 󱎫 $duration ]($style)[](fg:{{colors.secondary_container.default.hex}})'

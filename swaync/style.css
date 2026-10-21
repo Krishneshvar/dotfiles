@@ -433,7 +433,6 @@ scrollbar slider {
     border: 1px solid @outline;
     border-radius: 10px;
     margin: 4px;
-    padding: 8px 10px;
     box-shadow: none;
 }
 
