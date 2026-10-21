@@ -1,0 +1,61 @@
+/* wlogout layout and theming */
+@import url("../matugen/generated/colors.css");
+
+* {
+    font-family: Inter, "JetBrainsMono Nerd Font", sans-serif;
+    background-image: none;
+    box-shadow: none;
+    transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+}
+
+window {
+    background-color: rgba(18, 20, 14, 0.85);
+}
+
+button {
+    color: @fg;
+    background-color: @bg_alt;
+    border: 2px solid @outline;
+    border-radius: 18px;
+    margin: 14px;
+    padding: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    background-repeat: no-repeat;
+    background-position: center 35%;
+    background-size: 32%;
+}
+
+button:focus,
+button:active,
+button:hover {
+    background-color: @accent;
+    color: @accent_fg;
+    border-color: @accent;
+    outline: none;
+}
+
+/* Icons */
+#lock {
+    background-image: image(url("icons/lock.svg"));
+}
+
+#logout {
+    background-image: image(url("icons/logout.svg"));
+}
+
+#suspend {
+    background-image: image(url("icons/suspend.svg"));
+}
+
+#hibernate {
+    background-image: image(url("icons/hibernate.svg"));
+}
+
+#shutdown {
+    background-image: image(url("icons/shutdown.svg"));
+}
+
+#reboot {
+    background-image: image(url("icons/reboot.svg"));
+}

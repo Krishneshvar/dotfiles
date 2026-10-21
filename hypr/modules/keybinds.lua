@@ -14,20 +14,28 @@ local theme_script = p.theme_script
 local rand_theme   = p.rand_theme
 local hyprshot_w   = p.hyprshot_w
 local hyprshot_r   = p.hyprshot_r
+local wlogout      = p.wlogout
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(wlogout))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 
--- Custom binds
+-- Session & Power Management
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd(wlogout))
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
+
+-- Notifications & Control Center
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(swaync))
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -d -t")) -- toggle Do Not Disturb
+
+-- Custom binds
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(cliphist))
 hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(rofimoji))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(wall_script))
@@ -65,8 +73,8 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- bind = $mainMod, period, layoutmsg, move +col
 -- bind = $mainMod, comma, layoutmsg, move -col
 -- # Swap columns
--- bind = $mainMod SHIFT, period, layoutmsg, swapcol r
--- bind = $mainMod SHIFT, comma, layoutmsg, swapcol l
+hl.bind(mainMod .. " + SHIFT + period", hl.dsp.exec_cmd("layoutmsg, swapcol r"))
+hl.bind(mainMod .. " + SHIFT + comma",  hl.dsp.exec_cmd("layoutmsg, swapcol l"))
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"),      { locked = true, repeating = true })

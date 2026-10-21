@@ -35,7 +35,7 @@ backup_and_link() {
 echo "--> Setting up user configuration files..."
 
 # 1. Link folders in ~/.config
-config_folders=(hypr kitty matugen nvim rofi scripts swaync swayosd wallengine waybar)
+config_folders=(hypr kitty matugen nvim rofi scripts swaync swayosd wallengine waybar wlogout)
 for folder in "${config_folders[@]}"; do
     if [ -d "$DOTFILES_DIR/$folder" ]; then
         backup_and_link "$DOTFILES_DIR/$folder" "$CONFIG_DIR/$folder"

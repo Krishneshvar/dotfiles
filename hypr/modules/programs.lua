@@ -13,6 +13,7 @@ local programs = {
     rand_theme   = "~/.config/wallengine/themectl random",
     hyprshot_w   = "hyprshot -m window --freeze",
     hyprshot_r   = "hyprshot -m region --freeze",
+    wlogout      = "wlogout",
 }
 
 return programs
