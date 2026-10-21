@@ -2,17 +2,18 @@
 
 local mainMod = "SUPER"
 
-local terminal     = "kitty"
-local fileManager  = "nautilus"
-local menu         = "rofi -show drun -theme ~/.config/rofi/launcher.rasi"
-local swaync       = "swaync-client --skip-wait -t"
-local cliphist     = "cliphist list | rofi -dmenu -theme ~/.config/rofi/clipboard.rasi | cliphist decode | wl-copy"
-local rofimoji     = "rofimoji --selector rofi --selector-args '-theme ~/.config/rofi/emoji.rasi' --clipboarder wl-copy --typer wtype --hidden-descriptions"
-local wall_script  = "~/.config/wallengine/themectl choose-wall"
-local theme_script = "~/.config/wallengine/themectl choose-theme"
-local rand_theme   = "~/.config/wallengine/themectl random"
-local hyprshot_w   = "hyprshot -m window --freeze"
-local hyprshot_r   = "hyprshot -m region --freeze"
+local p = require("modules.programs")
+local terminal     = p.terminal
+local fileManager  = p.fileManager
+local menu         = p.menu
+local swaync       = p.swaync
+local cliphist     = p.cliphist
+local rofimoji     = p.rofimoji
+local wall_script  = p.wall_script
+local theme_script = p.theme_script
+local rand_theme   = p.rand_theme
+local hyprshot_w   = p.hyprshot_w
+local hyprshot_r   = p.hyprshot_r
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
@@ -23,15 +24,15 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
-hl.bind(mainMod .. " + SHIFT + T", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 
 -- Custom binds
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(swaync))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(cliphist))
 hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(rofimoji))
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(wall_script))
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(theme_script))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(rand_theme))
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(wall_script))
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd(theme_script))
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(rand_theme))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(hyprshot_r))
 hl.bind("PRINT", hl.dsp.exec_cmd(hyprshot_w))
 

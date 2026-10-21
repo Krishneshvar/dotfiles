@@ -2,7 +2,8 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 
-local terminal = "kitty"
+local programs = require("modules.programs")
+local terminal = programs.terminal
 
 hl.on("hyprland.start", function ()
     hl.exec_cmd(terminal)

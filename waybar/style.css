@@ -2,7 +2,7 @@
    Refer https://github.com/Alexays/Waybar/wiki/Styling
    for official styling docs
 */
-@import url("file:///home/krish/.config/matugen/generated/colors.css");
+@import url("../matugen/generated/colors.css");
 
 /* ========== State Variables ========== */
 @define-color state_ok lightgreen;

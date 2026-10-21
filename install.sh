@@ -44,11 +44,12 @@ for folder in "${config_folders[@]}"; do
     fi
 done
 
-# 2. Link starship.toml
-if [ -f "$DOTFILES_DIR/starship.toml" ]; then
-    backup_and_link "$DOTFILES_DIR/starship.toml" "$CONFIG_DIR/starship.toml"
-else
-    echo "Warning: starship.toml not found. Skipping."
+# 2. Setup starship.toml (managed dynamically by matugen)
+if [ ! -f "$CONFIG_DIR/starship.toml" ]; then
+    if [ -f "$DOTFILES_DIR/starship.toml" ]; then
+        echo "Copying default starship.toml to $CONFIG_DIR/starship.toml (matugen will generate dynamic themes)"
+        cp "$DOTFILES_DIR/starship.toml" "$CONFIG_DIR/starship.toml"
+    fi
 fi
 
 # 3. Link .zshrc
