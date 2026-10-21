@@ -51,7 +51,11 @@
 
     "mpris": {
       "image-size": 56,
-      "image-radius": 10
+      "image-radius": 10,
+      "autohide": true,
+      "blacklist": [
+        "playerctld"
+      ]
     },
 
     "buttons-grid#toggles": {

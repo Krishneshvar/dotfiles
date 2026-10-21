@@ -14,7 +14,7 @@
     "modules-left": [
         "clock",
         "hyprland/workspaces",
-        "mpris"
+        "custom/media"
     ],
     "modules-center": [
         "custom/logo"
@@ -34,37 +34,16 @@
     "hyprland/workspaces": {
         "format": "{name}"
     },
-    "mpris": {
-        "format": "{player_icon} {dynamic}",
-        "format-paused": "{player_icon} <i>{dynamic}</i>",
-        "format-stopped": "",
-        "player-icons": {
-            "default": " ",
-            "spotify": " ",
-            "firefox": "󰈹 ",
-            "chromium": " ",
-            "chrome": " ",
-            "brave": "󰈹 ",
-            "vlc": "󰕼 ",
-            "mpv": "󰐌 "
-        },
-        "status-icons": {
-            "playing": "▶ ",
-            "paused": "⏸ ",
-            "stopped": ""
-        },
-        "dynamic-order": ["title", "artist"],
-        "dynamic-importance-order": ["title", "artist"],
-        "dynamic-len": 32,
-        "max-length": 35,
-        "ellipsis": "…",
-        "tooltip-format": "{player} ({status})\n{dynamic}\n{album}",
-        "tooltip-format-stopped": "No media playing",
+    "custom/media": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "python3 $HOME/.config/waybar/scripts/media.py",
         "on-click": "playerctl play-pause",
         "on-click-right": "playerctl next",
         "on-click-middle": "playerctl previous",
         "on-scroll-up": "playerctl volume 0.05+",
-        "on-scroll-down": "playerctl volume 0.05-"
+        "on-scroll-down": "playerctl volume 0.05-",
+        "escape": false
     },
     "clock": {
         "format": " {0:%a, %b %d}    {0:%H:%M}",
