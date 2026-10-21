@@ -162,11 +162,25 @@ scrollbar slider {
     padding: 4px 6px;
 }
 
+.widget-mpris button label,
+.widget-mpris button image {
+    color: @fg;
+}
+
 .widget-mpris button:hover,
 .widget-mpris button:active {
     background: @accent;
     color: @bg;
     border-color: @accent;
+}
+
+.widget-mpris button:hover *,
+.widget-mpris button:hover image,
+.widget-mpris button:hover label,
+.widget-mpris button:active *,
+.widget-mpris button:active image,
+.widget-mpris button:active label {
+    color: @bg;
 }
 
 /* =========================================================
