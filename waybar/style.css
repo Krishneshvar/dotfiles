@@ -119,6 +119,13 @@ tooltip label {
     padding: 2px 14px 2px 12px;
 }
 
+#custom-notifications.dnd-notification,
+#custom-notifications.dnd-none,
+#custom-notifications.dnd-inhibited-notification,
+#custom-notifications.dnd-inhibited-none {
+    color: @accent;
+}
+
 /* ========== Power Button ========== */
 #custom-power {
     color: @state_crit;

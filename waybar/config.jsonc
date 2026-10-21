@@ -66,7 +66,7 @@
         "tooltip-format-wifi": "{essid} ({signaldBm}dBm)",
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
-        "on-click": "$HOME/.config/waybar/scripts/rofi_wifi.sh"
+        "on-click": "kitty --class nmtui-float -e nmtui"
     },
     "bluetooth": {
         "format": "",
@@ -131,11 +131,24 @@
         }
     },
     "custom/notifications": {
-        "format": "󰂚",
-        "exec": "swaync-client -c",
-        "interval": 3,
-        "on-click": "swaync-client -t",
-        "tooltip": false
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂚",
+            "dnd-notification": "󰂠",
+            "dnd-none": "󰂠",
+            "inhibited-notification": "󱅫",
+            "inhibited-none": "󰂚",
+            "dnd-inhibited-notification": "󰂠",
+            "dnd-inhibited-none": "󰂠"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
     },
     "tray": {
         "icon-size": 16,

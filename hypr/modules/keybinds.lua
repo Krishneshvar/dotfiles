@@ -22,7 +22,7 @@ local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(wlogout))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
@@ -67,12 +67,7 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Hyprland Scrolling layout binds
--- Move focus between columns
--- hl.bind(mainMod .. " + period", hl.dsp.exec_cmd())
--- hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd())
--- bind = $mainMod, period, layoutmsg, move +col
--- bind = $mainMod, comma, layoutmsg, move -col
--- # Swap columns
+-- Swap columns
 hl.bind(mainMod .. " + SHIFT + period", hl.dsp.exec_cmd("layoutmsg, swapcol r"))
 hl.bind(mainMod .. " + SHIFT + comma",  hl.dsp.exec_cmd("layoutmsg, swapcol l"))
 

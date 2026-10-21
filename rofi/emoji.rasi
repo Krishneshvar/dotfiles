@@ -39,7 +39,7 @@ listview {
 }
 
 element {
-    padding: 26px;
+    padding: 16px 20px 22px 20px;
     border-radius: 14px;
 
     background-color: transparent;
@@ -50,7 +50,7 @@ element-icon {
 }
 
 element-text {
-    font: "Noto Color Emoji 25";
+    font: "Noto Color Emoji 24";
 
     horizontal-align: 0.5;
     vertical-align: 0.5;

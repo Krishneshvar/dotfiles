@@ -53,3 +53,13 @@ hl.window_rule({
     size = "700 500",
     center = true,
 })
+
+-- Floating Network Manager TUI
+hl.window_rule({
+    name = "nmtui-floating",
+    match = { class = "nmtui-float" },
+    float = true,
+    size = "640 440",
+    center = true,
+})
+

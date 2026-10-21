@@ -1,12 +1,10 @@
 configuration {
-    modi: "drun,run,filebrowser,window";
+    modi: "drun,window";
     font: "JetBrainsMono Nerd Font 11";
     show-icons: true;
     icon-theme: "Papirus";
     drun-display-format: "{icon} {name}";
     display-drun: "   Apps ";
-    display-run: "   Run ";
-    display-filebrowser: "   Files ";
     display-window: " 󰕰  Window ";
     sidebar-mode: true;
     window-format: "{w} · {c} · {t}";

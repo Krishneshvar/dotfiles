@@ -390,8 +390,13 @@ scrollbar slider {
     color: @fg;
     border: 1px solid @outline;
     border-radius: 50%;
-    padding: 2px;
     box-shadow: none;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    padding: 2px;
+    margin: 6px;
 }
 
 .notification .close-button label,
@@ -399,6 +404,8 @@ scrollbar slider {
 .close-button label,
 .close-button image {
     color: @fg;
+    font-size: 11px;
+    -gtk-icon-size: 11px;
 }
 
 .notification .close-button:hover,
@@ -467,28 +474,54 @@ scrollbar slider {
     color: @bg;
 }
 
-.notification-group-close-button,
-.notification-group-close-all-button {
+/* Group close button container (Adw.Bin) must be transparent */
+.notification-group-close-button {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* The actual clickable close button inside */
+.notification-group-close-all-button,
+.notification-group .close-button {
     background: @bg;
     color: @fg;
     border: 1px solid @outline;
     border-radius: 50%;
     box-shadow: none;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    padding: 2px;
+    margin: 6px;
+    font-size: 11px;
 }
 
-.notification-group-close-button:hover,
-.notification-group-close-button:active,
+.notification-group-close-all-button label,
+.notification-group-close-all-button image,
+.notification-group .close-button label,
+.notification-group .close-button image {
+    color: @fg;
+    font-size: 11px;
+    -gtk-icon-size: 11px;
+}
+
 .notification-group-close-all-button:hover,
-.notification-group-close-all-button:active {
+.notification-group-close-all-button:active,
+.notification-group .close-button:hover,
+.notification-group .close-button:active {
     background: @accent;
     color: @bg;
     border-color: @accent;
 }
 
-.notification-group-close-button:hover *,
-.notification-group-close-button:active *,
 .notification-group-close-all-button:hover *,
-.notification-group-close-all-button:active * {
+.notification-group-close-all-button:active *,
+.notification-group .close-button:hover *,
+.notification-group .close-button:active * {
     color: @bg;
 }
 

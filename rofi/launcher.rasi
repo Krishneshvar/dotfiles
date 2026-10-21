@@ -1,7 +1,7 @@
 @import "base.rasi"
 
 window {
-    width: 600px;
+    width: 480px;
 }
 
 mainbox {
@@ -11,7 +11,7 @@ mainbox {
 }
 
 inputbar {
-    padding: 30px 30px 15px 30px;
+    padding: 24px 24px 12px 24px;
     background-color: transparent;
     children: [ "entry" ];
 }
@@ -28,9 +28,9 @@ entry {
 }
 
 listview {
-    padding: 10px 30px;
+    padding: 8px 24px;
 
-    spacing: 10px;
+    spacing: 8px;
 
     lines: 6;
     dynamic: true;
@@ -79,7 +79,7 @@ element-text {
 }
 
 mode-switcher {
-    margin: 15px 30px 30px 30px;
+    margin: 12px 24px 24px 24px;
 
     spacing: 10px;
 
