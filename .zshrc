@@ -30,7 +30,7 @@ bindkey '^[[F'    end-of-line
 # Aliases
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias update='sudo pacman -Syyu'
+alias update='hyprpm update && sudo pacman -Syyu'
 alias install='sudo pacman -S'
 alias remove='sudo pacman -Rns'
 alias rsrch='pacman -Ss'

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 BASE="$HOME/.config/wallengine"
-THEMES_DIR="$BASE/themes"
+THEMES_DIR="$HOME/Pictures/Wallpapers"
 STATE_DIR="$BASE/state"
 
 mkdir -p "$STATE_DIR"
@@ -48,16 +48,25 @@ apply_wall() {
 }
 
 random() {
-    THEME=$(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d | shuf -n 1 | xargs basename)
-    WALL=$(find "$THEMES_DIR/$THEME" -type f | shuf -n 1)
+    THEME_DIR=$(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d | shuf -n 1)
+    [ -z "$THEME_DIR" ] && exit 1
+    THEME=$(basename "$THEME_DIR")
+    WALL=$(find "$THEME_DIR" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.webp" -o -iname "*.gif" -o -iname "*.mp4" -o -iname "*.webm" \) | shuf -n 1)
     [ -z "$WALL" ] && exit 1
     apply_wall "$WALL" "$THEME"
 }
 
 set_theme() {
     THEME="$1"
-    [ ! -d "$THEMES_DIR/$THEME" ] && exit 1
-    WALL=$(find "$THEMES_DIR/$THEME" -type f | shuf -n 1)
+    THEME_DIR="$THEMES_DIR/$THEME"
+    if [ ! -d "$THEME_DIR" ]; then
+        MATCH=$(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d -iname "$THEME" | head -n 1)
+        [ -n "$MATCH" ] && THEME_DIR="$MATCH" && THEME=$(basename "$MATCH")
+    fi
+    [ ! -d "$THEME_DIR" ] && exit 1
+
+    WALL=$(find "$THEME_DIR" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.webp" -o -iname "*.gif" -o -iname "*.mp4" -o -iname "*.webm" \) | shuf -n 1)
+    [ -z "$WALL" ] && exit 1
     apply_wall "$WALL" "$THEME"
 }
 
@@ -69,14 +78,16 @@ choose_theme() {
 
         THEME_NAME=$(basename "$DIR")
 
-        # Use first file as preview
-        PREVIEW=$(find "$DIR" -type f | head -n 1)
+        # Use first image file as preview
+        PREVIEW=$(find "$DIR" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.webp" \) | head -n 1)
+        [ -z "$PREVIEW" ] && PREVIEW=$(find "$DIR" -maxdepth 1 -type f | head -n 1)
 
         LIST="${LIST}${THEME_NAME}\0icon\x1f${PREVIEW}\n"
     done
 
-    CHOICE=$(printf "$LIST" | rofi -dmenu \
+    CHOICE=$(printf "%b" "$LIST" | rofi -dmenu \
         -theme "$HOME/.config/rofi/wallpaper.rasi" \
+        -p "󰉋 Theme" \
         -show-icons)
 
     [ -z "$CHOICE" ] && exit 0
@@ -86,7 +97,19 @@ choose_theme() {
 
 choose_wallpaper() {
     THEME=$(cat "$STATE_DIR/current_theme" 2>/dev/null)
-    [ -z "$THEME" ] && exit 1
+    if [ -n "$THEME" ] && [ ! -d "$THEMES_DIR/$THEME" ]; then
+        MATCH=$(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d -iname "$THEME" | head -n 1)
+        if [ -n "$MATCH" ]; then
+            THEME=$(basename "$MATCH")
+        else
+            THEME=""
+        fi
+    fi
+
+    if [ -z "$THEME" ]; then
+        choose_theme
+        exit 0
+    fi
 
     COUNT=0
     LIST=""
@@ -102,8 +125,9 @@ choose_wallpaper() {
         [ "$COUNT" -ge 300 ] && break
     done
 
-    CHOICE=$(printf "$LIST" | rofi -dmenu \
+    CHOICE=$(printf "%b" "$LIST" | rofi -dmenu \
         -theme "$HOME/.config/rofi/wallpaper.rasi" \
+        -p "󰸉 $THEME" \
         -show-icons)
 
     [ -z "$CHOICE" ] && exit 0

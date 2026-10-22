@@ -1,17 +1,17 @@
 @import "base.rasi"
 
 window {
-    width: 520px;
+    width: 620px;
 }
 
 mainbox {
     spacing: 0;
     background-color: transparent;
-    children: [ "inputbar", "listview" ];
+    children: [ "inputbar", "message", "listview" ];
 }
 
 inputbar {
-    padding: 20px 20px 10px 20px;
+    padding: 18px 20px 10px 20px;
     background-color: transparent;
     children: [ "entry" ];
 }
@@ -20,18 +20,30 @@ entry {
     background-color: @bg-alt;
     text-color: @fg;
 
-    placeholder: "  Clipboard History...";
+    placeholder: "  Search clipboard history...";
     placeholder-color: @fg-muted;
 
     padding: 12px 16px;
     border-radius: 100px;
 }
 
+message {
+    padding: 0 20px 8px 20px;
+    background-color: transparent;
+}
+
+textbox {
+    padding: 6px 12px;
+    background-color: transparent;
+    text-color: @fg-muted;
+    horizontal-align: 0.5;
+}
+
 listview {
     padding: 10px 20px 20px 20px;
 
-    lines: 10;
-    spacing: 6px;
+    lines: 7;
+    spacing: 8px;
 
     background-color: transparent;
 
@@ -39,7 +51,7 @@ listview {
 }
 
 element {
-    padding: 10px 14px;
+    padding: 8px 14px;
     border-radius: 12px;
 
     background-color: transparent;
@@ -54,11 +66,13 @@ element selected.normal {
 element-text {
     background-color: transparent;
     text-color: inherit;
+    vertical-align: 0.5;
 }
 
 element-icon {
     background-color: transparent;
-    size: 20px;
-    margin: 0 10px 0 0;
+    size: 44px;
+    margin: 0 12px 0 0;
     vertical-align: 0.5;
+    border-radius: 6px;
 }
