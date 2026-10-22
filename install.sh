@@ -44,15 +44,21 @@ if [[ "$install_pkgs" =~ ^[Yy]$ ]]; then
 
     OFFICIAL_PKGS=(
         base-devel
+        gcc
         cmake
         cpio
         git
+        python
         hyprland
         hyprlock
         hypridle
         hyprpolkitagent
-        hyprpm
+        hyprpicker
         hyprshot
+        greetd
+        greetd-regreet
+        gnome-keyring
+        libsecret
         pipewire
         wireplumber
         xdg-desktop-portal
@@ -65,7 +71,13 @@ if [[ "$install_pkgs" =~ ^[Yy]$ ]]; then
         kitty
         nautilus
         starship
+        matugen
+        awww
+        swaync
+        swayosd
+        rofimoji
         zsh
+        zsh-completions
         zsh-autosuggestions
         zsh-syntax-highlighting
         cliphist
@@ -78,6 +90,10 @@ if [[ "$install_pkgs" =~ ^[Yy]$ ]]; then
         blueman
         networkmanager
         ttf-jetbrains-mono-nerd
+        noto-fonts
+        noto-fonts-emoji
+        noto-fonts-cjk
+        noto-fonts-extra
         python-gobject
         gtk-layer-shell
         python-cairo
@@ -86,15 +102,13 @@ if [[ "$install_pkgs" =~ ^[Yy]$ ]]; then
         qt6-wayland
         layer-shell-qt
         opencv
+        xorg-xwayland
+        fastfetch
+        power-profiles-daemon
     )
 
     AUR_PKGS=(
-        swaync
-        swayosd-git
         wlogout
-        rofimoji
-        matugen-bin
-        awww-bin
         xwaylandvideobridge
     )
 
@@ -223,10 +237,44 @@ if [[ "$setup_system" =~ ^[Yy]$ ]]; then
             sudo cp -v "$DOTFILES_DIR/setup-files/config.toml" /etc/greetd/config.toml
         fi
 
-        if [ -f "$DOTFILES_DIR/setup-files/hyprland.conf" ]; then
-            echo "Copying greetd hyprland.conf to /etc/greetd/"
+        if [ -f "$DOTFILES_DIR/setup-files/hyprland.lua" ]; then
+            echo "Copying greetd hyprland.lua to /etc/greetd/"
             sudo mkdir -p /etc/greetd
-            sudo cp -v "$DOTFILES_DIR/setup-files/hyprland.conf" /etc/greetd/hyprland.conf
+            sudo cp -v "$DOTFILES_DIR/setup-files/hyprland.lua" /etc/greetd/hyprland.lua
+        fi
+
+        # ReGreet configuration, styles, and background
+        if [ -f "$DOTFILES_DIR/setup-files/regreet.toml" ]; then
+            echo "Copying regreet.toml to /etc/greetd/"
+            sudo mkdir -p /etc/greetd
+            sudo cp -v "$DOTFILES_DIR/setup-files/regreet.toml" /etc/greetd/regreet.toml
+        fi
+
+        if [ -f "$DOTFILES_DIR/setup-files/regreet.css" ]; then
+            echo "Copying regreet.css to /etc/greetd/"
+            sudo mkdir -p /etc/greetd
+            sudo cp -v "$DOTFILES_DIR/setup-files/regreet.css" /etc/greetd/regreet.css
+        fi
+
+        if [ -f "$DOTFILES_DIR/setup-files/wallpaper.png" ]; then
+            echo "Copying greeter wallpaper to /etc/greetd/"
+            sudo mkdir -p /etc/greetd
+            sudo cp -v "$DOTFILES_DIR/setup-files/wallpaper.png" /etc/greetd/wallpaper.png
+            sudo chmod 644 /etc/greetd/wallpaper.png
+        fi
+
+        # Configure greeter user permissions and cache directory
+        if id greeter >/dev/null 2>&1; then
+            echo "Ensuring greeter user belongs to video group..."
+            sudo usermod -aG video greeter 2>/dev/null || true
+            sudo mkdir -p /var/log/regreet
+            sudo chown -R greeter:greeter /var/log/regreet 2>/dev/null || true
+        fi
+
+        # Enable greetd display manager service
+        if systemctl list-unit-files greetd.service >/dev/null 2>&1; then
+            echo "Enabling greetd.service..."
+            sudo systemctl enable greetd.service 2>/dev/null || true
         fi
 
         echo "✓ System-wide setup complete."

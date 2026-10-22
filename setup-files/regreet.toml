@@ -1,0 +1,31 @@
+# /etc/greetd/regreet.toml
+# ReGreet configuration for greetd
+
+# Whether to skip asking for username and session if last used ones exist
+skip_selection = false
+
+[background]
+path = "/etc/greetd/wallpaper.png"
+fit = "Cover"
+
+[env]
+GDK_BACKEND = "wayland"
+
+[GTK]
+application_prefer_dark_theme = true
+theme_name = "Adwaita-dark"
+icon_theme_name = "Adwaita"
+font_name = "JetBrainsMono Nerd Font 12"
+cursor_theme_name = "Adwaita"
+cursor_blink = true
+
+[commands]
+reboot = ["systemctl", "reboot"]
+poweroff = ["systemctl", "poweroff"]
+
+[appearance]
+greeting_msg = "Welcome to Hyprland"
+
+[widget.clock]
+format = "%a, %b %d  ·  %H:%M"
+resolution = "500ms"
