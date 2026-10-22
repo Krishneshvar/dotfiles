@@ -63,3 +63,18 @@ hl.window_rule({
     center = true,
 })
 
+-- XWayland Video Bridge Fixes (for seamless screensharing in Discord, Zoom, etc.)
+hl.window_rule({
+    name = "xwayland-video-bridge-fixes",
+    match = {
+        class = "xwaylandvideobridge",
+    },
+
+    no_initial_focus = true,
+    no_focus = true,
+    no_anim = true,
+    no_blur = true,
+    max_size = {1, 1},
+    opacity = 0.0,
+})
+

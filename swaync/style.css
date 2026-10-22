@@ -218,8 +218,8 @@ scrollbar slider {
     color: @fg;
     border: 1px solid @outline;
     border-radius: 9px;
-    padding: 6px 10px;
-    font-size: 12px;
+    padding: 2px 10px;
+    font-size: 10px;
 }
 
 .widget-title button label {
