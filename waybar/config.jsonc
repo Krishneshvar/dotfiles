@@ -32,7 +32,9 @@
     // Module definitions
     // Left modules
     "hyprland/workspaces": {
-        "format": "{name}"
+        "format": "{name}",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
     },
     "custom/media": {
         "format": "{}",
@@ -55,7 +57,7 @@
     "custom/logo": {
         "format": "  ",
         "tooltip": false,
-        "on-click": "rofi -show drun -theme ~/.config/rofi/launcher.rasi"
+        "on-click": "$HOME/.config/hypr/scripts/keybinds.sh"
     },
     // Right modules
     "network": {

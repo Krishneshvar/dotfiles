@@ -59,7 +59,7 @@ hl.window_rule({
     name = "nmtui-floating",
     match = { class = "nmtui-float" },
     float = true,
-    size = "640 440",
+    size = "820 580",
     center = true,
 })
 
@@ -77,4 +77,3 @@ hl.window_rule({
     max_size = {1, 1},
     opacity = 0.0,
 })
-

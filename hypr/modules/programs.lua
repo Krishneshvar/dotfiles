@@ -11,8 +11,9 @@ local programs = {
     wall_script  = "~/.config/wallengine/themectl choose-wall",
     theme_script = "~/.config/wallengine/themectl choose-theme",
     rand_theme   = "~/.config/wallengine/themectl random",
-    hyprshot_w   = "hyprshot -m window --freeze",
-    hyprshot_r   = "hyprshot -m region --freeze",
+    hyprshot_w   = "hyprshot -m window --freeze -o ~/Pictures/Screenshots",
+    hyprshot_r   = "hyprshot -m region --freeze -o ~/Pictures/Screenshots",
+    keybinds     = "~/.config/hypr/scripts/keybinds.sh",
     wlogout      = "wlogout",
 }
 

@@ -14,6 +14,7 @@ local theme_script = p.theme_script
 local rand_theme   = p.rand_theme
 local hyprshot_w   = p.hyprshot_w
 local hyprshot_r   = p.hyprshot_r
+local keybinds     = p.keybinds
 local wlogout      = p.wlogout
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
@@ -41,6 +42,7 @@ hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(rofimoji))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(wall_script))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd(theme_script))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(rand_theme))
+hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd(keybinds))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(hyprshot_r))
 hl.bind("PRINT", hl.dsp.exec_cmd(hyprshot_w))
 

@@ -164,13 +164,16 @@ class CalendarWindow(Gtk.Window):
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.TOP, True)
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.LEFT, True)
         
-        # Position Margins: 4px from Waybar, 10px from the left screen edge
-        GtkLayerShell.set_margin(self, GtkLayerShell.Edge.TOP, 4)
+        # Position Margins: 0px from Waybar to eliminate hover deadzone, 10px from the left screen edge
+        GtkLayerShell.set_margin(self, GtkLayerShell.Edge.TOP, 0)
         GtkLayerShell.set_margin(self, GtkLayerShell.Edge.LEFT, 10)
         
         # Enable on-demand keyboard focus to capture clicks outside the window
         GtkLayerShell.set_keyboard_mode(self, GtkLayerShell.KeyboardMode.ON_DEMAND)
         
+        self.close_timer_id = None
+        self.is_mouse_inside = False
+
         self.setup_css()
         
         card = Gtk.Box()
@@ -181,13 +184,19 @@ class CalendarWindow(Gtk.Window):
         self.cal = CustomCalendar()
         card.pack_start(self.cal, True, True, 0)
         
-        # Bind the focus-out event to the close function
+        # Mouse enter/leave and focus events
+        self.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK)
+        self.connect("enter-notify-event", self.on_mouse_enter)
+        self.connect("leave-notify-event", self.on_mouse_leave)
         self.connect("focus-out-event", self.on_focus_out)
         self.connect("key-press-event", self.on_key_press)
         
         self.show_all()
         # Force the window to present itself and grab focus immediately
         self.present()
+
+        # Initial hover grace interval (1000ms) to allow comfortably moving mouse from Waybar to calendar
+        self.schedule_close(1000)
 
     def setup_css(self):
         css_provider = Gtk.CssProvider()
@@ -207,6 +216,7 @@ class CalendarWindow(Gtk.Window):
         }}
         
         #calendar-card {{
+            margin-top: 4px;
             background-color: @bg;
             border: 1px solid @outline;
             border-radius: 16px;
@@ -299,14 +309,46 @@ class CalendarWindow(Gtk.Window):
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
+    def cancel_close(self):
+        if self.close_timer_id is not None:
+            GLib.source_remove(self.close_timer_id)
+            self.close_timer_id = None
+
+    def schedule_close(self, timeout_ms=1000):
+        self.cancel_close()
+        self.close_timer_id = GLib.timeout_add(timeout_ms, self._on_timeout_close)
+
+    def _on_timeout_close(self):
+        self.close_timer_id = None
+        if not self.is_mouse_inside:
+            self.close_and_exit()
+        return False
+
+    def on_mouse_enter(self, widget, event):
+        if event.detail != Gdk.NotifyType.INFERIOR:
+            self.is_mouse_inside = True
+            self.cancel_close()
+        return False
+
+    def on_mouse_leave(self, widget, event):
+        if event.detail != Gdk.NotifyType.INFERIOR:
+            alloc = self.get_allocation()
+            if event.x < 0 or event.y < 0 or event.x >= alloc.width or event.y >= alloc.height:
+                self.is_mouse_inside = False
+                self.schedule_close(1000)
+        return False
+
     def on_focus_out(self, widget, event):
-        self.close_and_exit()
+        if not self.is_mouse_inside:
+            self.schedule_close(1000)
+        return False
 
     def on_key_press(self, widget, event):
         if event.keyval == Gdk.KEY_Escape:
             self.close_and_exit()
 
     def close_and_exit(self):
+        self.cancel_close()
         self.destroy()
         Gtk.main_quit()
         sys.exit(0)
