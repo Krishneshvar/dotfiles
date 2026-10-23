@@ -1,7 +1,6 @@
 # /etc/greetd/regreet.toml
-# ReGreet configuration for greetd
+# Midnight Glass — ReGreet configuration
 
-# Whether to skip asking for username and session if last used ones exist
 skip_selection = false
 
 [background]
@@ -27,5 +26,5 @@ poweroff = ["systemctl", "poweroff"]
 greeting_msg = "Welcome to Hyprland"
 
 [widget.clock]
-format = "%a, %b %d  ·  %H:%M"
+format = "%H:%M  ·  %a, %b %d"
 resolution = "500ms"

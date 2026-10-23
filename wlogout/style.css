@@ -39,23 +39,53 @@ button:hover {
 #lock {
     background-image: image(url("icons/lock.svg"));
 }
+#lock:focus,
+#lock:active,
+#lock:hover {
+    background-image: image(url("icons/active/lock.svg"));
+}
 
 #logout {
     background-image: image(url("icons/logout.svg"));
+}
+#logout:focus,
+#logout:active,
+#logout:hover {
+    background-image: image(url("icons/active/logout.svg"));
 }
 
 #suspend {
     background-image: image(url("icons/suspend.svg"));
 }
+#suspend:focus,
+#suspend:active,
+#suspend:hover {
+    background-image: image(url("icons/active/suspend.svg"));
+}
 
 #hibernate {
     background-image: image(url("icons/hibernate.svg"));
+}
+#hibernate:focus,
+#hibernate:active,
+#hibernate:hover {
+    background-image: image(url("icons/active/hibernate.svg"));
 }
 
 #shutdown {
     background-image: image(url("icons/shutdown.svg"));
 }
+#shutdown:focus,
+#shutdown:active,
+#shutdown:hover {
+    background-image: image(url("icons/active/shutdown.svg"));
+}
 
 #reboot {
     background-image: image(url("icons/reboot.svg"));
+}
+#reboot:focus,
+#reboot:active,
+#reboot:hover {
+    background-image: image(url("icons/active/reboot.svg"));
 }

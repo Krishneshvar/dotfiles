@@ -14,6 +14,17 @@ reload_ui() {
         killall swayosd-server
         swayosd-server >/dev/null 2>&1 &
     }
+
+    # Dynamically update wlogout SVG icons to match active theme colors
+    COLORS_CSS="$HOME/.config/matugen/generated/colors.css"
+    if [ -f "$COLORS_CSS" ] && [ -d "$HOME/.config/wlogout/icons" ]; then
+        FG=$(grep -m 1 "@define-color fg " "$COLORS_CSS" | awk '{print $3}' | tr -d ';')
+        ACCENT_FG=$(grep -m 1 "@define-color accent_fg " "$COLORS_CSS" | awk '{print $3}' | tr -d ';')
+        if [ -n "$FG" ] && [ -n "$ACCENT_FG" ]; then
+            sed -i -E "s/stroke=\"#[0-9a-fA-F]+\"/stroke=\"$FG\"/g; s/fill=\"#[0-9a-fA-F]+\"/fill=\"$FG\"/g" "$HOME/.config/wlogout/icons/"*.svg 2>/dev/null || true
+            sed -i -E "s/stroke=\"#[0-9a-fA-F]+\"/stroke=\"$ACCENT_FG\"/g; s/fill=\"#[0-9a-fA-F]+\"/fill=\"$ACCENT_FG\"/g" "$HOME/.config/wlogout/icons/active/"*.svg 2>/dev/null || true
+        fi
+    fi
 }
 
 apply_wall() {

@@ -1,75 +1,333 @@
-/* /etc/greetd/regreet.css - Custom Modern Styling for ReGreet */
+/*
+ * ReGreet — Midnight Glass
+ * Install: /etc/greetd/regreet.css
+ * Palette: Catppuccin-inspired midnight, sapphire, lavender and rose
+ */
+
+/* -------------------------------------------------------------------------- */
+/* Global canvas + wallpaper                                                   */
+/* -------------------------------------------------------------------------- */
 
 window {
-    background-color: #1e1e2e;
-    color: #cdd6f4;
+    background-color: #0b0d14;
+    color: #e6e9f5;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12pt;
 }
 
-#clock {
-    font-size: 2.4em;
-    font-weight: 700;
-    color: #cdd6f4;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    margin-bottom: 8px;
+/* Slightly dim and desaturate the wallpaper so the glass panels stay legible. */
+picture {
+    filter: brightness(0.72) saturate(0.88);
 }
 
-#greeting {
-    font-size: 1.2em;
+/* -------------------------------------------------------------------------- */
+/* Main login panel — translucent glass, shifted to the left                   */
+/* -------------------------------------------------------------------------- */
+
+frame.background:not(.widget-clock) {
+    margin-right: 55%;
+    padding: 10px;
+
+    background-color: rgba(15, 18, 29, 0.82);
+    border: 1px solid rgba(205, 214, 244, 0.16);
+    border-left: 3px solid rgba(137, 180, 250, 0.92);
+    border-radius: 28px;
+
+    box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.58),
+        0 4px 18px rgba(0, 0, 0, 0.30);
+}
+
+/* Keep labels understated so the fields and greeting carry the hierarchy. */
+frame.background:not(.widget-clock) label:not(#message_label) {
+    color: #a6adc8;
+    font-size: 0.88em;
     font-weight: 600;
-    color: #bac2de;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-    margin-bottom: 16px;
+    letter-spacing: 0.3px;
 }
 
-/* Glassmorphism styling for greeter container cards */
-.login-box, .card, box.card {
-    background-color: rgba(30, 30, 46, 0.82);
-    border: 1px solid rgba(205, 214, 244, 0.15);
-    border-radius: 18px;
-    padding: 24px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+/* Greeting / status message */
+#message_label,
+.message-label {
+    color: #f5f7ff;
+    font-size: 1.28em;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.38);
 }
 
-/* Entry input boxes */
+/* -------------------------------------------------------------------------- */
+/* Text fields — rounded pills with strong focus feedback                      */
+/* -------------------------------------------------------------------------- */
+
 entry {
-    background-color: rgba(24, 24, 37, 0.85);
-    border: 1px solid rgba(205, 214, 244, 0.2);
-    border-radius: 12px;
-    padding: 10px 14px;
+    min-height: 22px;
+    padding: 11px 17px;
+
+    color: #f4f6ff;
+    caret-color: #89b4fa;
+    background-color: rgba(8, 11, 20, 0.64);
+    border: 1px solid rgba(186, 194, 222, 0.20);
+    border-radius: 999px;
+
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    transition: background-color 160ms ease,
+                border-color 160ms ease,
+                box-shadow 160ms ease;
+}
+
+entry:hover {
+    background-color: rgba(17, 22, 36, 0.92);
+    border-color: rgba(137, 180, 250, 0.62);
+}
+
+entry:focus,
+entry:focus-within {
+    color: #ffffff;
+    background-color: rgba(17, 22, 37, 0.98);
+    border-color: #89b4fa;
+    box-shadow:
+        0 0 0 1px rgba(137, 180, 250, 0.78),
+        0 0 0 4px rgba(137, 180, 250, 0.16);
+}
+
+entry:disabled {
+    color: rgba(205, 214, 244, 0.42);
+    background-color: rgba(10, 12, 19, 0.38);
+    border-color: rgba(186, 194, 222, 0.08);
+}
+
+/* -------------------------------------------------------------------------- */
+/* User + session selectors                                                    */
+/* -------------------------------------------------------------------------- */
+
+combobox,
+dropdown {
+    min-height: 22px;
+    padding: 9px 13px;
+
+    color: #e6e9f5;
+    background-color: rgba(8, 11, 20, 0.64);
+    border: 1px solid rgba(186, 194, 222, 0.20);
+    border-radius: 999px;
+
+    transition: background-color 160ms ease,
+                border-color 160ms ease,
+                box-shadow 160ms ease;
+}
+
+combobox:hover,
+dropdown:hover {
+    background-color: rgba(17, 22, 36, 0.92);
+    border-color: rgba(137, 180, 250, 0.62);
+}
+
+combobox:focus,
+dropdown:focus {
+    border-color: #89b4fa;
+    box-shadow: 0 0 0 3px rgba(137, 180, 250, 0.18);
+}
+
+/* Avoid a second square button surface inside the combo-box pill. */
+combobox button {
     color: #cdd6f4;
-    font-size: 1.05em;
+    background-color: transparent;
+    border: none;
+    border-radius: 999px;
+    box-shadow: none;
 }
 
-entry:focus {
-    border-color: #cba6f7;
-    box-shadow: 0 0 0 2px rgba(203, 166, 247, 0.3);
+combobox button:hover {
+    color: #ffffff;
+    background-color: rgba(137, 180, 250, 0.14);
+    border: none;
+    box-shadow: none;
 }
 
-/* Action buttons */
+/* Dropdown popovers */
+popover > contents,
+popover contents {
+    color: #e6e9f5;
+    background-color: rgba(19, 22, 34, 0.98);
+    border: 1px solid rgba(205, 214, 244, 0.16);
+    border-radius: 16px;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
+}
+
+popover row:hover,
+listview row:hover {
+    color: #ffffff;
+    background-color: rgba(137, 180, 250, 0.15);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Buttons — rounded, with distinct primary / neutral / destructive states     */
+/* -------------------------------------------------------------------------- */
+
 button {
-    background-color: rgba(49, 50, 68, 0.85);
-    border: 1px solid rgba(205, 214, 244, 0.15);
-    border-radius: 12px;
-    padding: 10px 18px;
+    min-height: 20px;
+    padding: 10px 20px;
+
     color: #cdd6f4;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
+    background-color: rgba(35, 39, 55, 0.88);
+    border: 1px solid rgba(205, 214, 244, 0.14);
+    border-radius: 999px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
+    font-weight: 650;
+    transition: background-color 160ms ease,
+                color 160ms ease,
+                border-color 160ms ease,
+                box-shadow 160ms ease;
 }
 
 button:hover {
-    background-color: #cba6f7;
-    color: #11111b;
+    color: #ffffff;
+    background-color: rgba(66, 72, 98, 0.96);
+    border-color: rgba(205, 214, 244, 0.28);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.24);
 }
 
-/* Dropdown / combo selectors (Session & User) */
-dropdown, combobox {
-    background-color: rgba(24, 24, 37, 0.85);
-    border: 1px solid rgba(205, 214, 244, 0.2);
-    border-radius: 12px;
-    padding: 8px 12px;
+button:active {
+    background-color: rgba(49, 54, 75, 0.98);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.24);
+}
+
+button:disabled {
+    color: rgba(205, 214, 244, 0.36);
+    background-color: rgba(35, 39, 55, 0.38);
+    border-color: rgba(205, 214, 244, 0.06);
+    box-shadow: none;
+}
+
+button:focus-visible {
+    outline: 2px solid rgba(137, 180, 250, 0.88);
+    outline-offset: 3px;
+}
+
+/* Login — confident sapphire accent */
+button.suggested-action {
+    color: #101522;
+    background-color: #89b4fa;
+    border-color: #89b4fa;
+    font-weight: 800;
+    box-shadow: 0 5px 18px rgba(137, 180, 250, 0.20);
+}
+
+button.suggested-action:hover {
+    color: #0b1020;
+    background-color: #b4d0ff;
+    border-color: #b4d0ff;
+    box-shadow: 0 7px 22px rgba(137, 180, 250, 0.34);
+}
+
+button.suggested-action:active {
+    color: #0b1020;
+    background-color: #74a5f2;
+    border-color: #74a5f2;
+    box-shadow: inset 0 2px 5px rgba(26, 37, 61, 0.18);
+}
+
+/* Small manual-entry toggle buttons */
+button.toggle,
+togglebutton {
+    min-width: 22px;
+    min-height: 22px;
+    padding: 8px;
+    color: #a6adc8;
+    background-color: rgba(35, 39, 55, 0.55);
+    border: 1px solid rgba(205, 214, 244, 0.10);
+    border-radius: 999px;
+    box-shadow: none;
+}
+
+button.toggle:hover,
+togglebutton:hover {
+    color: #89b4fa;
+    background-color: rgba(137, 180, 250, 0.14);
+    border-color: rgba(137, 180, 250, 0.45);
+}
+
+button.toggle:checked,
+togglebutton:checked {
+    color: #111827;
+    background-color: #89b4fa;
+    border-color: #89b4fa;
+}
+
+/* Reboot — warm amber hover */
+button.destructive-action:first-child {
     color: #cdd6f4;
+    background-color: rgba(23, 26, 38, 0.86);
+    border: 1px solid rgba(249, 226, 175, 0.20);
+    border-radius: 999px;
 }
 
-dropdown:hover, combobox:hover {
-    border-color: #cba6f7;
+button.destructive-action:first-child:hover {
+    color: #17130a;
+    background-color: #f9e2af;
+    border-color: #f9e2af;
+    box-shadow: 0 5px 18px rgba(249, 226, 175, 0.22);
+}
+
+/* Power off — rose hover */
+button.destructive-action:last-child {
+    color: #cdd6f4;
+    background-color: rgba(23, 26, 38, 0.86);
+    border: 1px solid rgba(243, 139, 168, 0.20);
+    border-radius: 999px;
+}
+
+button.destructive-action:last-child:hover {
+    color: #1b0c13;
+    background-color: #f38ba8;
+    border-color: #f38ba8;
+    box-shadow: 0 5px 18px rgba(243, 139, 168, 0.24);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Clock — oversized top glass banner                                         */
+/* -------------------------------------------------------------------------- */
+
+frame.background.widget-clock {
+    padding: 14px 34px 18px;
+    margin: 0;
+
+    color: #f5f7ff;
+    background-color: rgba(12, 15, 25, 0.76);
+    border: 1px solid rgba(205, 214, 244, 0.15);
+    border-bottom: 1px solid rgba(137, 180, 250, 0.42);
+    border-radius: 0 0 30px 30px;
+
+    box-shadow:
+        0 18px 46px rgba(0, 0, 0, 0.42),
+        0 3px 12px rgba(0, 0, 0, 0.22);
+}
+
+.widget-clock label {
+    color: #f5f7ff;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 3.9em;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.48);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Bottom messages / notification area                                        */
+/* -------------------------------------------------------------------------- */
+
+infobar {
+    color: #e6e9f5;
+    background-color: rgba(19, 22, 34, 0.94);
+    border: 1px solid rgba(205, 214, 244, 0.15);
+    border-radius: 16px;
+}
+
+infobar.info {
+    border-color: rgba(137, 180, 250, 0.38);
+}
+
+infobar.error {
+    border-color: rgba(243, 139, 168, 0.48);
 }

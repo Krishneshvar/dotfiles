@@ -35,6 +35,7 @@ alias install='sudo pacman -S'
 alias remove='sudo pacman -Rns'
 alias rsrch='pacman -Ss'
 alias isrch='pacman -Qs'
+alias pacclean='sudo paccache -rk1'
 
 # Exports
 export COLORTERM=truecolor
