@@ -17,16 +17,13 @@ local hyprshot_r   = p.hyprshot_r
 local keybinds     = p.keybinds
 local wlogout      = p.wlogout
 
--- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
+-- Refer https://wiki.hypr.land/Configuring/Basics/Binds/
+hl.bind(mainMod .. " + C", hl.dsp.window.close())
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
-local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
--- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(wlogout))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 
 -- Session & Power Management
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd(wlogout))
@@ -38,11 +35,12 @@ hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -d -t")) -- to
 
 -- Custom binds
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(cliphist))
+hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd(keybinds))
+hl.bind(mainMod .. " + F11", hl.dsp.window.fullscreen("fullscreen", "toggle"))
 hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(rofimoji))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(wall_script))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd(theme_script))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(rand_theme))
-hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd(keybinds))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(hyprshot_r))
 hl.bind("PRINT", hl.dsp.exec_cmd(hyprshot_w))
 
@@ -70,8 +68,8 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Hyprland Scrolling layout binds
 -- Swap columns
-hl.bind(mainMod .. " + SHIFT + period", hl.dsp.exec_cmd("layoutmsg, swapcol r"))
-hl.bind(mainMod .. " + SHIFT + comma",  hl.dsp.exec_cmd("layoutmsg, swapcol l"))
+hl.bind(mainMod .. " + SHIFT + period", hl.dsp.layout("swapcol r"))
+hl.bind(mainMod .. " + SHIFT + comma",  hl.dsp.layout("swapcol l"))
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"),      { locked = true, repeating = true })

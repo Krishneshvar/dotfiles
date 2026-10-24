@@ -91,12 +91,26 @@ def setup_user_configs(dotfiles_dir: Path, dry_run: bool = False):
     if zshrc_src.is_file():
         backup_and_link(zshrc_src, Path.home() / ".zshrc", dry_run=dry_run)
 
-    # Media Directories
+    # Media Directories & Default Wallpapers
     info("Ensuring media directories exist...")
+    wallpapers_dest = Path.home() / "Pictures" / "Wallpapers"
+    screenshots_dest = Path.home() / "Pictures" / "Screenshots"
     if not dry_run:
-        (Path.home() / "Pictures" / "Wallpapers").mkdir(parents=True, exist_ok=True)
-        (Path.home() / "Pictures" / "Screenshots").mkdir(parents=True, exist_ok=True)
-    success("Pictures/Wallpapers and Pictures/Screenshots ready.")
+        wallpapers_dest.mkdir(parents=True, exist_ok=True)
+        screenshots_dest.mkdir(parents=True, exist_ok=True)
+    success("Pictures/Wallpapers and Pictures/Screenshots directories ready.")
+
+    wallpapers_src = dotfiles_dir / "wallengine" / "Wallpapers"
+    if wallpapers_src.is_dir():
+        info("Installing default wallpapers and themes into ~/Pictures/Wallpapers/ ...")
+        if dry_run:
+            print(f"    {Style.DIM}[DRY-RUN] Copy default wallpapers from {wallpapers_src} to {wallpapers_dest}{Style.RESET}")
+        else:
+            try:
+                shutil.copytree(wallpapers_src, wallpapers_dest, dirs_exist_ok=True)
+                success("Default wallpapers and themes populated.")
+            except Exception as e:
+                warn(f"Failed to copy wallpapers: {e}")
 
     # Permissions on executable scripts
     info("Setting executable permissions on helper scripts...")

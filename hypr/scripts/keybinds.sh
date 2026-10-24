@@ -19,12 +19,12 @@ read -r -d '' ENTRIES << 'EOF'
 <b>SUPER + SHIFT + R</b>      <span alpha='65%'>·  Random Theme & Wallpaper</span>|~/.config/wallengine/themectl random|media-playlist-shuffle
 <b>SUPER + N</b>              <span alpha='65%'>·  Toggle Notification Center</span>|swaync-client --skip-wait -t|preferences-system-notifications
 <b>SUPER + SHIFT + N</b>      <span alpha='65%'>·  Toggle Do Not Disturb</span>|swaync-client -d -t|preferences-system-notifications
-<b>SUPER + L</b>              <span alpha='65%'>·  Lock Screen (hyprlock)</span>|hyprlock|system-lock-screen
 <b>SUPER + ESCAPE</b>         <span alpha='65%'>·  Power / Logout Menu (wlogout)</span>|wlogout|system-shutdown
+<b>SUPER + L</b>              <span alpha='65%'>·  Lock Screen (hyprlock)</span>|hyprlock|system-lock-screen
+<b>SUPER + M</b>              <span alpha='65%'>·  Exit Hyprland</span>|command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit|system-log-out
 <b>SUPER + C</b>              <span alpha='65%'>·  Close Active Window</span>|hyprctl dispatch killactive|window-close
 <b>SUPER + T</b>              <span alpha='65%'>·  Toggle Floating Window</span>|hyprctl dispatch togglefloating|view-restore
-<b>SUPER + P</b>              <span alpha='65%'>·  Toggle Pseudo Tiling</span>|hyprctl dispatch pseudo|view-grid
-<b>SUPER + J</b>              <span alpha='65%'>·  Toggle Split Direction</span>|hyprctl dispatch togglesplit|view-grid
+<b>SUPER + F11</b>            <span alpha='65%'>·  Toggle Fullscreen Window</span>|hyprctl dispatch fullscreen 0|view-fullscreen
 <b>SUPER + Arrow Keys</b>     <span alpha='65%'>·  Focus Window (Left / Right / Up / Down)</span>||input-keyboard
 <b>SUPER + LMB (drag)</b>     <span alpha='65%'>·  Move Window</span>||input-mouse
 <b>SUPER + RMB (drag)</b>     <span alpha='65%'>·  Resize Window</span>||input-mouse

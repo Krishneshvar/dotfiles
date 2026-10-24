@@ -66,7 +66,7 @@ dotfiles/
 ├── setup-files/         # System files for greetd, ReGreet, PAM, and sessions
 ├── swaync/              # SwayNotificationCenter configuration and styling
 ├── swayosd/             # SwayOSD styling
-├── wallengine/          # Wallpaper and theme switcher script (themectl)
+├── wallengine/          # Wallpaper/theme switcher (themectl) and bundled Wallpapers/
 ├── waybar/              # Waybar layout, modules, and styles
 └── wlogout/             # Power menu layout, styles, and vector icons
 ```
@@ -75,7 +75,7 @@ dotfiles/
 
 ## Wallpapers and Dynamic Theming
 
-Wallpapers and themes are managed by the `themectl` utility located in `wallengine/themectl`.
+Wallpapers and themes are managed by the `themectl` utility located in `wallengine/themectl`. Default themes and wallpapers are bundled inside `wallengine/Wallpapers/` and automatically copied to `~/Pictures/Wallpapers/` by the installer so theming works out of the box.
 
 ### Organization
 
@@ -214,9 +214,10 @@ If you prefer to link configurations manually:
    ln -snf ~/dotfiles/.zshrc ~/.zshrc
    ```
 
-4. Create required directories and set script permissions:
+4. Create required directories, copy bundled wallpapers, and set script permissions:
    ```bash
    mkdir -p ~/Pictures/Wallpapers ~/Pictures/Screenshots
+   cp -rn ~/dotfiles/wallengine/Wallpapers/* ~/Pictures/Wallpapers/
    chmod +x ~/dotfiles/hypr/scripts/*.sh ~/dotfiles/hypr/scripts/*.py ~/dotfiles/wallengine/themectl
    ```
 
@@ -260,21 +261,34 @@ sudo systemctl enable greetd.service
 
 ## Keybinds Reference
 
-A quick reference list of default keybindings configured in `hypr/hyprland.conf`:
+A quick reference list of default keybindings configured in `hypr/modules/keybinds.lua`:
 
 | Keybinding | Action |
 | :--- | :--- |
+| `Super + Space` | Open Rofi application launcher |
 | `Super + Q` | Open Kitty terminal |
-| `Super + C` | Close active window |
-| `Super + M` | Exit Hyprland |
 | `Super + E` | Open Nautilus file manager |
-| `Super + V` | Toggle floating window mode |
-| `Super + R` | Open Rofi application launcher |
-| `Super + P` | Color picker (Hyprpicker) |
-| `Super + Period` | Open emoji picker (Rofimoji) |
+| `Super + C` | Close active window |
+| `Super + T` | Toggle floating window mode |
+| `Super + F11` | Toggle fullscreen mode |
+| `Super + V` | Clipboard history (Cliphist) |
+| `Super + /` | Show keybindings list (Rofi) |
+| `Super + .` | Open emoji picker (Rofimoji) |
+| `Super + N` | Toggle notification center (SwayNC) |
+| `Super + Shift + N` | Toggle Do Not Disturb (SwayNC) |
+| `Super + L` | Lock screen (Hyprlock) |
 | `Super + Escape` | Open wlogout power menu |
+| `Super + M` | Exit Hyprland session |
+| `Super + Shift + W` | Select wallpaper (themectl) |
+| `Super + Shift + T` | Select theme (themectl) |
+| `Super + Shift + R` | Apply random theme and wallpaper (themectl) |
 | `Super + Shift + S` | Capture region screenshot (Hyprshot) |
+| `Print` | Capture active window screenshot (Hyprshot) |
 | `Super + Left / Right / Up / Down` | Move window focus |
+| `Super + Shift + , / .` | Swap columns (Scrolling layout) |
 | `Super + 1 .. 0` | Switch to workspace 1 through 10 |
 | `Super + Shift + 1 .. 0` | Move active window to workspace 1 through 10 |
-| `Volume / Brightness Keys` | Adjust volume or brightness with SwayOSD feedback |
+| `Super + Mouse Scroll` | Cycle through workspaces |
+| `Super + LMB / RMB (drag)` | Move or resize floating window |
+| `Volume / Brightness / Media Keys` | Audio, brightness, and media playback control |
+
