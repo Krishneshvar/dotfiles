@@ -185,6 +185,42 @@ def show_package_breakdown():
         print()
 
 
+def install_package_batch(base_cmd: list[str], pkgs: list[str], dry_run: bool = False) -> list[str]:
+    """
+    Attempts batch installation. If batch installation fails, falls back to
+    installing packages individually so a single failing package does not abort
+    the installation of all other packages.
+    Returns a list of packages that failed to install.
+    """
+    if not pkgs:
+        return []
+
+    if dry_run:
+        print(f"    {Style.DIM}[DRY-RUN]{Style.RESET} {' '.join(base_cmd + pkgs)}")
+        return []
+
+    # 1. Try batch installation first (fastest)
+    try:
+        res = subprocess.run(base_cmd + pkgs)
+        if res.returncode == 0:
+            return []
+    except Exception as e:
+        warn(f"Batch execution error: {e}")
+
+    # 2. Batch failed: fall back to installing packages individually
+    warn("Batch installation encountered an issue. Installing packages individually...")
+    failed = []
+    for pkg in pkgs:
+        try:
+            p_res = subprocess.run(base_cmd + [pkg])
+            if p_res.returncode != 0:
+                failed.append(pkg)
+        except Exception:
+            failed.append(pkg)
+
+    return failed
+
+
 def install_packages(pacman_pkgs: list[str], aur_pkgs: list[str], dry_run: bool = False):
     """Installs official packages via pacman/AUR helper and AUR packages via yay/paru."""
     if not pacman_pkgs and not aur_pkgs:
@@ -192,27 +228,32 @@ def install_packages(pacman_pkgs: list[str], aur_pkgs: list[str], dry_run: bool 
         return
 
     helper = detect_aur_helper()
-
-    def run_cmd(cmd: list[str]):
-        if dry_run:
-            print(f"    {Style.DIM}[DRY-RUN]{Style.RESET} {' '.join(cmd)}")
-            return
-        subprocess.run(cmd, check=True)
+    failed_pacman: list[str] = []
+    failed_aur: list[str] = []
 
     if helper:
         info(f"Using AUR helper: {Style.BOLD}{helper}{Style.RESET}")
+        base_cmd = [helper, "-S", "--needed"]
         if pacman_pkgs:
             info(f"Installing {len(pacman_pkgs)} official packages...")
-            run_cmd([helper, "-S", "--needed"] + pacman_pkgs)
+            failed_pacman = install_package_batch(base_cmd, pacman_pkgs, dry_run=dry_run)
         if aur_pkgs:
             info(f"Installing {len(aur_pkgs)} AUR packages...")
-            run_cmd([helper, "-S", "--needed"] + aur_pkgs)
+            failed_aur = install_package_batch(base_cmd, aur_pkgs, dry_run=dry_run)
     else:
         info(f"No AUR helper found. Using {Style.BOLD}pacman{Style.RESET} for official packages...")
         if pacman_pkgs:
-            run_cmd(["sudo", "pacman", "-S", "--needed"] + pacman_pkgs)
+            failed_pacman = install_package_batch(["sudo", "pacman", "-S", "--needed"], pacman_pkgs, dry_run=dry_run)
         if aur_pkgs:
             warn("The following AUR packages must be installed manually (or install yay/paru first):")
             print(f"    {Style.PEACH}{' '.join(aur_pkgs)}{Style.RESET}")
 
-    success("Package installation step completed.")
+    total_failed = failed_pacman + failed_aur
+    if total_failed:
+        warn(f"{len(total_failed)} package(s) could not be installed automatically:")
+        for pkg in total_failed:
+            print(f"    {Style.RED}✗ {pkg}{Style.RESET}")
+        print(f"  {Style.GRAY}Continuing with dotfiles and user configurations...{Style.RESET}")
+    else:
+        success("Package installation step completed successfully.")
+

@@ -132,6 +132,7 @@ The provided installer automates package installation, user configuration symlin
    ```
 
 The script will:
+- Verify active network connectivity before proceeding.
 - Verify that `git` and `python` are installed on the system (installing them via `pacman` if missing).
 - Launch the Python installer wizard.
 - Prompt you to select your desired package installation scope:

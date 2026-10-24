@@ -4,6 +4,7 @@ Main entry point and orchestrator for the dotfiles installer.
 
 import argparse
 import subprocess
+import sys
 from pathlib import Path
 
 from installer.configs import setup_user_configs
@@ -19,12 +20,31 @@ from installer.system import setup_system_wide
 from installer.ui import (
     Style,
     box_print,
+    error,
     info,
     prompt_input,
     section,
     success,
     warn,
 )
+
+
+def check_network(timeout: int = 3) -> bool:
+    """Checks whether an active internet connection is available."""
+    import socket
+    for host in ["1.1.1.1", "8.8.8.8"]:
+        try:
+            socket.create_connection((host, 53), timeout=timeout)
+            return True
+        except OSError:
+            pass
+    try:
+        import urllib.request
+        urllib.request.urlopen("https://archlinux.org", timeout=timeout)
+        return True
+    except Exception:
+        return False
+
 
 
 def check_git_updates(dotfiles_dir: Path, dry_run: bool = False):
@@ -104,7 +124,17 @@ def main():
     if args.dry_run:
         print(f"  {Style.YELLOW}⚠ Running in DRY-RUN mode. No changes will be applied to disk.{Style.RESET}\n")
 
-    # Step 0: Check git updates
+    # Step 0: Check network connectivity
+    if not args.config_only and not args.dry_run:
+        info("Checking network connectivity...")
+        if not check_network():
+            error("No internet connection detected.")
+            print(f"  {Style.GRAY}An active internet connection is required to install packages and setup components.{Style.RESET}")
+            print(f"  {Style.GRAY}Please connect to the internet and rerun the installer.{Style.RESET}\n")
+            sys.exit(1)
+        success("Network connection is active.")
+
+    # Step 1: Check git updates
     if not args.no_pull and not args.system_only:
         check_git_updates(dotfiles_dir, dry_run=args.dry_run)
 
