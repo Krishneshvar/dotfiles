@@ -54,6 +54,27 @@ def error(msg: str):
     print(f"  {Style.RED}✗{Style.RESET} {msg}")
 
 
+def alert(title: str, message: str):
+    import textwrap
+    width = 68
+    inner_width = width - 4
+    content_width = inner_width - 2
+    print(f"\n  {Style.BOLD}{Style.RED}┌{'─' * inner_width}┐{Style.RESET}")
+    header_text = f"⚠ ALERT: {title}"
+    pad = inner_width - len(header_text) - 2
+    print(f"  {Style.BOLD}{Style.RED}│ {header_text}" + " " * max(0, pad) + f" │{Style.RESET}")
+    print(f"  {Style.BOLD}{Style.RED}├{'─' * inner_width}┤{Style.RESET}")
+    for raw_line in message.strip().splitlines():
+        if not raw_line.strip():
+            print(f"  {Style.BOLD}{Style.RED}│{Style.RESET}" + " " * (inner_width) + f"{Style.BOLD}{Style.RED}│{Style.RESET}")
+            continue
+        wrapped = [raw_line] if raw_line.startswith("  •") else textwrap.wrap(raw_line, content_width)
+        for line in wrapped:
+            l_pad = content_width - len(line)
+            print(f"  {Style.BOLD}{Style.RED}│{Style.RESET} {Style.WHITE}{line}" + " " * max(0, l_pad) + f" {Style.BOLD}{Style.RED}│{Style.RESET}")
+    print(f"  {Style.BOLD}{Style.RED}└{'─' * inner_width}┘{Style.RESET}\n")
+
+
 def prompt_input(prompt_text: str, default: str = "") -> str:
     try:
         val = input(f"  {Style.BOLD}{Style.MAUVE}{prompt_text}{Style.RESET}").strip()

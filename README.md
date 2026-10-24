@@ -256,8 +256,11 @@ sudo usermod -aG video greeter
 sudo mkdir -p /var/log/regreet
 sudo chown -R greeter:greeter /var/log/regreet
 
-# Enable display manager service
-sudo systemctl enable greetd.service
+# Disable existing display manager (e.g. sddm, gdm, lightdm) to avoid login conflicts
+# sudo systemctl disable --now sddm.service
+
+# Enable greetd display manager service
+sudo systemctl enable --force greetd.service
 ```
 
 ---
