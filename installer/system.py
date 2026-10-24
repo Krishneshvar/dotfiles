@@ -127,4 +127,18 @@ def setup_system_wide(dotfiles_dir: Path, dry_run: bool = False):
     except Exception:
         pass
 
+    # Enable NetworkManager service
+    try:
+        nm_srv = subprocess.run(
+            ["systemctl", "list-unit-files", "NetworkManager.service"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            text=True,
+        )
+        if "NetworkManager.service" in nm_srv.stdout:
+            info("Enabling NetworkManager.service...")
+            run_cmd(["sudo", "systemctl", "enable", "NetworkManager.service"])
+    except Exception:
+        pass
+
     success("System-wide display manager and session setup complete.")

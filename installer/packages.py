@@ -34,12 +34,13 @@ CONFIG_PACMAN = [
     # Theming & Wallpaper
     "matugen",
     "awww",
-    # Fonts
+    # Fonts & Icons
     "ttf-jetbrains-mono-nerd",
     "noto-fonts",
     "noto-fonts-emoji",
     "noto-fonts-cjk",
     "noto-fonts-extra",
+    "papirus-icon-theme",
     # Shell & Terminal
     "kitty",
     "zsh",
@@ -61,6 +62,7 @@ CONFIG_PACMAN = [
     "brightnessctl",
     "pavucontrol",
     "blueman",
+    "networkmanager",
     "network-manager-applet",
     "power-profiles-daemon",
     # Greeter
@@ -233,7 +235,7 @@ def install_packages(pacman_pkgs: list[str], aur_pkgs: list[str], dry_run: bool 
 
     if helper:
         info(f"Using AUR helper: {Style.BOLD}{helper}{Style.RESET}")
-        base_cmd = [helper, "-S", "--needed"]
+        base_cmd = [helper, "-S", "--needed", "--noconfirm"]
         if pacman_pkgs:
             info(f"Installing {len(pacman_pkgs)} official packages...")
             failed_pacman = install_package_batch(base_cmd, pacman_pkgs, dry_run=dry_run)
@@ -243,7 +245,7 @@ def install_packages(pacman_pkgs: list[str], aur_pkgs: list[str], dry_run: bool 
     else:
         info(f"No AUR helper found. Using {Style.BOLD}pacman{Style.RESET} for official packages...")
         if pacman_pkgs:
-            failed_pacman = install_package_batch(["sudo", "pacman", "-S", "--needed"], pacman_pkgs, dry_run=dry_run)
+            failed_pacman = install_package_batch(["sudo", "pacman", "-S", "--needed", "--noconfirm"], pacman_pkgs, dry_run=dry_run)
         if aur_pkgs:
             warn("The following AUR packages must be installed manually (or install yay/paru first):")
             print(f"    {Style.PEACH}{' '.join(aur_pkgs)}{Style.RESET}")

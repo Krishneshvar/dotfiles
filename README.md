@@ -136,7 +136,7 @@ The script will:
 - Verify that `git` and `python` are installed on the system (installing them via `pacman` if missing).
 - Launch the Python installer wizard.
 - Prompt you to select your desired package installation scope:
-  - **Minimal (Config Only)**: Installs only the 49 official packages and 2 AUR packages strictly needed for the desktop environment.
+  - **Minimal (Config Only)**: Installs only the 51 official packages and 2 AUR packages strictly needed for the desktop environment.
   - **Complete (Config + All)**: Installs config packages plus personal development tools, compilers, NVIDIA drivers, and applications.
   - **Personal Extras Only**: Installs only the personal extras (dev tools, compilers, drivers, productivity apps).
   - **Skip Packages**: Skips package installation and proceeds directly to linking configurations.
@@ -160,7 +160,7 @@ usage: install.py [-h] [--minimal] [--full] [--extras-only] [--skip-packages]
 
 Options:
   -h, --help       Show this help message and exit
-  --minimal        Install config-required packages only (49 Pacman, 2 AUR)
+  --minimal        Install config-required packages only (51 Pacman, 2 AUR)
   --full           Install config packages and personal applications
   --extras-only    Install personal applications and tools only
   --skip-packages  Skip package installation entirely

@@ -79,11 +79,11 @@ def prompt_package_selection() -> tuple[list[str], list[str]]:
     section("Step 1/3", "Package Installation Options")
     print(f"  {Style.BOLD}How would you like to handle package installation?{Style.RESET}\n")
     print(f"    {Style.BOLD}[1]{Style.RESET} {Style.GREEN}Minimal (Config Only){Style.RESET}   Install ONLY packages needed for this desktop setup")
-    print(f"                              {Style.GRAY}(49 official + 2 AUR packages){Style.RESET}")
+    print(f"                              {Style.GRAY}(51 official + 2 AUR packages){Style.RESET}")
     print(f"    {Style.BOLD}[2]{Style.RESET} {Style.BLUE}Complete (Config + All){Style.RESET} Install config packages + all your personal tools & apps")
-    print(f"                              {Style.GRAY}(99 official + 10 AUR packages: dev, nvidia, apps){Style.RESET}")
+    print(f"                              {Style.GRAY}(100 official + 10 AUR packages: dev, nvidia, apps){Style.RESET}")
     print(f"    {Style.BOLD}[3]{Style.RESET} {Style.PEACH}Personal Extras Only{Style.RESET}     Install ONLY your personal apps/tools (skip config pkgs)")
-    print(f"                              {Style.GRAY}(50 official + 8 AUR packages){Style.RESET}")
+    print(f"                              {Style.GRAY}(49 official + 8 AUR packages){Style.RESET}")
     print(f"    {Style.BOLD}[4]{Style.RESET} {Style.WHITE}Skip Packages{Style.RESET}            Skip package install (proceed straight to dotfiles)")
     print(f"    {Style.BOLD}[v]{Style.RESET} {Style.CYAN}View Package Lists{Style.RESET}       Display full package lists by category")
     print()
@@ -106,7 +106,7 @@ def prompt_package_selection() -> tuple[list[str], list[str]]:
 
 def main():
     parser = argparse.ArgumentParser(description="Install and configure dotfiles & system.")
-    parser.add_argument("--minimal", action="store_true", help="Install config-required packages only")
+    parser.add_argument("--minimal", action="store_true", help="Install config-required packages only (51 Pacman, 2 AUR)")
     parser.add_argument("--full", action="store_true", help="Install config packages + all personal apps/tools")
     parser.add_argument("--extras-only", action="store_true", help="Install personal apps/tools only")
     parser.add_argument("--skip-packages", action="store_true", help="Skip package installation entirely")

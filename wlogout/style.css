@@ -63,14 +63,6 @@ button:hover {
     background-image: image(url("icons/active/suspend.svg"));
 }
 
-#hibernate {
-    background-image: image(url("icons/hibernate.svg"));
-}
-#hibernate:focus,
-#hibernate:active,
-#hibernate:hover {
-    background-image: image(url("icons/active/hibernate.svg"));
-}
 
 #shutdown {
     background-image: image(url("icons/shutdown.svg"));
