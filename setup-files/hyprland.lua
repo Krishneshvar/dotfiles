@@ -2,7 +2,7 @@
 -- Minimal greeter compositor configuration for ReGreet
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("regreet; hyprctl dispatch 'hl.dsp.exit()'")
+    hl.exec_cmd("regreet; hyprctl dispatch exit")
 end)
 
 hl.monitor({

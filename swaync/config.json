@@ -45,7 +45,6 @@
 
     "backlight#screen": {
       "label": "󰃠 ",
-      "device": "intel_backlight",
       "min": 1
     },
 
