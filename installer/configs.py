@@ -112,6 +112,19 @@ def setup_user_configs(dotfiles_dir: Path, dry_run: bool = False):
             except Exception as e:
                 warn(f"Failed to copy wallpapers: {e}")
 
+    # Initialize default theme and wallpaper state
+    default_theme = "Catppuccin"
+    default_wall = wallpapers_dest / default_theme / "Space.png"
+    state_dest = config_dir / "wallengine" / "state"
+    if not dry_run and default_wall.is_file():
+        state_dest.mkdir(parents=True, exist_ok=True)
+        theme_file = state_dest / "current_theme"
+        wall_file = state_dest / "current_wallpaper"
+        if not theme_file.exists() or theme_file.stat().st_size == 0:
+            theme_file.write_text(f"{default_theme}\n")
+        if not wall_file.exists() or wall_file.stat().st_size == 0:
+            wall_file.write_text(f"{default_wall}\n")
+
     # Permissions on executable scripts
     info("Setting executable permissions on helper scripts...")
     script_dirs = [dotfiles_dir / "hypr" / "scripts", dotfiles_dir / "wallengine"]

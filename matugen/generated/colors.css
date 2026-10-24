@@ -1,0 +1,23 @@
+/* Shared CSS for Waybar and SwayNC */
+@define-color bg #121318;
+@define-color bg_alt #1e1f25;
+@define-color bg_alt2 #292a2f;
+
+@define-color fg #e3e1e9;
+@define-color fg_muted #c6c6d0;
+
+@define-color accent #b5c4ff;
+@define-color accent_fg #1c2d61;
+
+@define-color accent_alt #c1c5dd;
+@define-color accent_alt_fg #2b3042;
+
+@define-color success #e2bbdb;
+@define-color success_fg #432740;
+
+@define-color warning #4c5c92;
+
+@define-color error #ffb4ab;
+@define-color error_fg #690005;
+
+@define-color outline #8f909a;

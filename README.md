@@ -77,6 +77,9 @@ dotfiles/
 
 Wallpapers and themes are managed by the `themectl` utility located in `wallengine/themectl`. Default themes and wallpapers are bundled inside `wallengine/Wallpapers/` and automatically copied to `~/Pictures/Wallpapers/` by the installer so theming works out of the box.
 
+The repository includes pre-generated color schemes in `matugen/generated/` and matching vector icons in `wlogout/icons/` based on the default `Catppuccin` theme (`Space.png`). This ensures that Waybar, Rofi, SwayNC, Kitty, and Hyprlock load styled immediately on first boot without experiencing cold-start race conditions. When a user subsequently selects another wallpaper or theme, `themectl` generates and applies updated palettes dynamically.
+
+
 ### Organization
 
 Wallpapers are stored in your home directory under `~/Pictures/Wallpapers/`:

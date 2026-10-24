@@ -148,6 +148,33 @@ choose_wallpaper() {
     apply_wall "$FULL_PATH" "$THEME"
 }
 
+restore() {
+    WALL=$(cat "$STATE_DIR/current_wallpaper" 2>/dev/null)
+    if [ -z "$WALL" ] || [ ! -f "$WALL" ]; then
+        WALL="$THEMES_DIR/Catppuccin/Space.png"
+        if [ -f "$WALL" ]; then
+            echo "Catppuccin" > "$STATE_DIR/current_theme"
+            echo "$WALL" > "$STATE_DIR/current_wallpaper"
+        fi
+    fi
+
+    if [ -f "$WALL" ]; then
+        case "$WALL" in
+            *.gif|*.mp4|*.webm) FPS=30 ;;
+            *) FPS=60 ;;
+        esac
+        # Poll up to 2 seconds for awww-daemon socket
+        tries=0
+        while [ "$tries" -lt 20 ]; do
+            if awww img "$WALL" --transition-type none --transition-fps "$FPS" >/dev/null 2>&1; then
+                break
+            fi
+            sleep 0.1
+            tries=$((tries + 1))
+        done
+    fi
+}
+
 list() {
     find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d -printf "%f\n"
 }
@@ -158,10 +185,12 @@ current() {
 
 case "$1" in
     random) random ;;
+    restore) restore ;;
     set) set_theme "$2" ;;
     choose-theme) choose_theme ;;
     choose-wall) choose_wallpaper ;;
     list) list ;;
     current) current ;;
-    *) echo "Usage: themectl [random|set|choose-theme|choose-wall|list|current]" ;;
+    *) echo "Usage: themectl [random|restore|set|choose-theme|choose-wall|list|current]" ;;
 esac
+

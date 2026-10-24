@@ -1,0 +1,16 @@
+* {
+    /* Main Background with slight transparency */
+    bg: #121318F2; 
+    bg-alt: #292a2f;
+    
+    /* Text colors */
+    fg: #e3e1e9;
+    fg-muted: #c6c6d0;
+    
+    /* Selected Item - HIGH CONTRAST PAIR */
+    accent: #b5c4ff;
+    on-accent: #1c2d61;
+    
+    /* Border color */
+    border-col: #b5c4ff;
+}
