@@ -46,6 +46,24 @@ def check_network(timeout: int = 3) -> bool:
         return False
 
 
+def check_arch() -> bool:
+    """Verifies the host is running Arch Linux or an Arch-based distribution."""
+    arch_release = Path("/etc/arch-release")
+    if arch_release.exists():
+        return True
+    os_release = Path("/etc/os-release")
+    if os_release.exists():
+        data: dict[str, str] = {}
+        for line in os_release.read_text().splitlines():
+            if "=" in line:
+                k, _, v = line.partition("=")
+                data[k.strip()] = v.strip().strip('"')
+        dist_id = data.get("ID", "").lower()
+        id_like = data.get("ID_LIKE", "").lower()
+        if dist_id in ("arch", "archarm") or "arch" in id_like:
+            return True
+    return False
+
 
 def check_git_updates(dotfiles_dir: Path, dry_run: bool = False):
     """Pulls latest commits from remote repository if inside a git work tree."""
@@ -79,9 +97,9 @@ def prompt_package_selection() -> tuple[list[str], list[str]]:
     section("Step 1/3", "Package Installation Options")
     print(f"  {Style.BOLD}How would you like to handle package installation?{Style.RESET}\n")
     print(f"    {Style.BOLD}[1]{Style.RESET} {Style.GREEN}Minimal (Config Only){Style.RESET}   Install ONLY packages needed for this desktop setup")
-    print(f"                              {Style.GRAY}(51 official + 2 AUR packages){Style.RESET}")
+    print(f"                              {Style.GRAY}(52 official + 2 AUR packages){Style.RESET}")
     print(f"    {Style.BOLD}[2]{Style.RESET} {Style.BLUE}Complete (Config + All){Style.RESET} Install config packages + all your personal tools & apps")
-    print(f"                              {Style.GRAY}(100 official + 10 AUR packages: dev, nvidia, apps){Style.RESET}")
+    print(f"                              {Style.GRAY}(101 official + 10 AUR packages: dev, nvidia, apps){Style.RESET}")
     print(f"    {Style.BOLD}[3]{Style.RESET} {Style.PEACH}Personal Extras Only{Style.RESET}     Install ONLY your personal apps/tools (skip config pkgs)")
     print(f"                              {Style.GRAY}(49 official + 8 AUR packages){Style.RESET}")
     print(f"    {Style.BOLD}[4]{Style.RESET} {Style.WHITE}Skip Packages{Style.RESET}            Skip package install (proceed straight to dotfiles)")
@@ -124,7 +142,16 @@ def main():
     if args.dry_run:
         print(f"  {Style.YELLOW}⚠ Running in DRY-RUN mode. No changes will be applied to disk.{Style.RESET}\n")
 
-    # Step 0: Check network connectivity
+    # Step 0a: Verify Arch Linux distribution
+    if not args.dry_run:
+        if not check_arch():
+            error("Unsupported distribution.")
+            print(f"  {Style.GRAY}This installer targets Arch Linux and Arch-based distributions only.{Style.RESET}")
+            print(f"  {Style.GRAY}Your system does not appear to be Arch Linux (/etc/arch-release not found).{Style.RESET}\n")
+            sys.exit(1)
+
+    # Step 0b: Check network connectivity
+
     if not args.config_only and not args.dry_run:
         info("Checking network connectivity...")
         if not check_network():
@@ -134,7 +161,7 @@ def main():
             sys.exit(1)
         success("Network connection is active.")
 
-    # Step 1: Check git updates
+    # Step 0c: Check git updates
     if not args.no_pull and not args.system_only:
         check_git_updates(dotfiles_dir, dry_run=args.dry_run)
 

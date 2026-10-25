@@ -23,6 +23,7 @@ CONFIG_PACMAN = [
     "xdg-desktop-portal-hyprland",
     "xdg-desktop-portal-gtk",
     "pipewire",
+    "pipewire-pulse",
     "wireplumber",
     # Bar, Launcher, Notifications, OSD
     "waybar",

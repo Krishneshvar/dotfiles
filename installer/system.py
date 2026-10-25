@@ -141,4 +141,17 @@ def setup_system_wide(dotfiles_dir: Path, dry_run: bool = False):
     except Exception:
         pass
 
+    # Enable PipeWire user units so audio works on first login
+    pipewire_units = [
+        "pipewire.socket",
+        "pipewire-pulse.socket",
+        "wireplumber.service",
+    ]
+    info("Enabling PipeWire audio user units...")
+    for unit in pipewire_units:
+        try:
+            run_cmd(["systemctl", "--user", "enable", "--now", unit])
+        except Exception as e:
+            warn(f"Could not enable {unit}: {e}")
+
     success("System-wide display manager and session setup complete.")
